@@ -1,4 +1,4 @@
-# 🏗️ UNDP Create App CLI
+# 🏗️ UNDP Create App CLI ![npm](https://img.shields.io/npm/v/@undp/create-app)
 
 **`@undp/create-app`** is UNDP’s official **project scaffolding tool** for quickly bootstrapping frontend applications using **React**, **Vite**, and **TypeScript** — complete with sensible defaults for ESLint, Prettier, and UNDP’s Design System.
 
