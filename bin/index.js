@@ -3,6 +3,7 @@
 import path from 'path';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+import { execSync } from 'child_process';
 import { promptUser } from './promptUser.js';
 import { generateFiles } from './generateFiles.js';
 import { printSuccess, createFolders } from './utils/index.js';
@@ -48,9 +49,20 @@ async function main() {
   ]);
 
   console.log(chalk.bold.yellow('\n📦 Installing dependencies (this might take some time)...'));
-  if (installNow) execSync('npm install', { stdio: 'inherit' })
-  console.log(chalk.green('  ✓ All dependencies installed'));
-
+  if (installNow) {
+    try {
+      execSync('npm install', { stdio: 'inherit' })
+      console.log(chalk.green('  ✓ All dependencies installed'));
+    } catch {
+      console.log(chalk.yellow('  ⚠️  Skipped installing dependencies (npm not installed or error occurred)'));
+    }
+  }
+  try {
+    execSync('git init', { stdio: 'ignore' });
+    console.log(chalk.green('  ✓ Git repository initialized'));
+  } catch {
+    console.log(chalk.yellow('  ⚠️  Skipped git init (Git not installed or error occurred)'));
+  }
   printSuccess(config, installNow);
 }
 
