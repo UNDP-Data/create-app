@@ -2,6 +2,8 @@
 
 **`@undp/create-app`** is UNDP’s official **project scaffolding tool** for quickly bootstrapping frontend applications using **React**, **Vite**, and **TypeScript** — complete with sensible defaults for ESLint, Prettier, and UNDP’s Design System.
 
+[NPM Package](https://www.npmjs.com/package/@undp/create-app)
+
 ---
 
 ## 🚀 Features
