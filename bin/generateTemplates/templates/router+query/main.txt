@@ -1,0 +1,69 @@
+import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from '@tanstack/react-router';
+
+import Header from './components/Header';
+import Footer from './components/Footer';
+import * as TanStackQueryProvider from './integration/tanstack-query';
+
+import './styles/fonts.css';
+import './styles/style.css';
+
+import App from './App';
+
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  ),
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: App,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  TanStackQueryDemo(rootRoute),
+]);
+
+const TanStackQueryProviderContext = TanStackQueryProvider.getContext();
+const router = createRouter({
+  routeTree,
+  context: {
+    ...TanStackQueryProviderContext,
+  },
+  defaultPreload: 'intent',
+  scrollRestoration: true,
+  defaultStructuralSharing: true,
+  defaultPreloadStaleTime: 0,
+});
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+const rootElement = document.getElementById('app');
+if (rootElement && !rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <StrictMode>
+      <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
+        <RouterProvider router={router} />
+      </TanStackQueryProvider.Provider>
+    </StrictMode>,
+  );
+}
