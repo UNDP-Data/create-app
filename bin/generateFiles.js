@@ -44,7 +44,7 @@ export function generateFiles(config) {
 
   // Config files
   console.log(chalk.bold.yellow('\n⚙️  Creating configuration and tooling files...'));
-  copyTemplate('eslint.config.js', 'eslint.config.js', ['templates', 'configFiles']);
+  copyTemplate('eslint.config.mjs', 'eslint.config.mjs', ['templates', 'configFiles']);
   copyTemplate('.prettierrc', '.prettierrc', ['templates', 'configFiles']);
   copyTemplate('vite.config.ts', config.addPostCSSScripts ?  'vite.config.ts.txt' : 'viteWithoutPostCss.config.ts.txt', ['templates', 'configFiles']);
   fs.writeFileSync('src/vite-env.d.ts', `/// <reference types="vite/client" />`);
