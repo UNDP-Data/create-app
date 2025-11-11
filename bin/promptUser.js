@@ -12,55 +12,81 @@ const question = (query) =>
 
 export async function promptUser(name) {
   console.log(
-    chalk.bold.cyan("\n🚀 UNDP Frontend Starter Kit | Let's configure your application") +
-    chalk.gray('\n🔧 Powered by React, Vite, TypeScript, ESLint, Prettier, Tailwind, and React Compiler\n')
+    chalk.bold.cyan("\n🚀 UNDP Frontend Starter Kit | Let's configure your application")
   );
   console.log(chalk.gray('─'.repeat(60)) + '\n');
 
   const projectName = name ? name : (await question(chalk.yellow('📝 Enter project name: '))) || 'my-undp-react-app';
   
+  const { framework } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'framework',
+      message: chalk.yellow('📦 Select the framework you prefer to use:\n'),
+      choices: [
+        { 
+          name: 'Vite + Tailwind — Lightweight and blazing fast React starter (ideal if you are planning to embed the SPA in another page)', 
+          value: 'vite-basic' 
+        },
+        { 
+          name: 'Vite + Tailwind + Query — Optimized starter with data fetching powered by TanStack Query (ideal if you are planning to embed the SPA in another page)', 
+          value: 'vite-query' 
+        },
+        { 
+          name: 'Vite + Tailwind + Router — Fast starter with built-in routing support', 
+          value: 'vite-router' 
+        },
+        { 
+          name: 'Vite + Tailwind + Router + Query — Complete Vite setup for routing and data management', 
+          value: 'vite-full' 
+        },
+        { 
+          name: 'Next.js + Tailwind — Production-ready React framework with file-based routing and SSR', 
+          value: 'next-basic' 
+        },
+        { 
+          name: 'Next.js + Tailwind + Auth — Secure, full-stack framework with authentication and SSR', 
+          value: 'next-auth' 
+        },
+      ],
+      default: 'vite-basic',
+    },
+  ]);
+
+  const libraryChoices = [
+    { 
+      name: '@undp/data-viz — UNDP data visualization components', 
+      value: '@undp/data-viz' 
+    },
+    { 
+      name: 'lucide-react — Beautiful open-source icon set for React', 
+      value: 'lucide-react' 
+    },
+    { 
+      name: 'Peer dependencies — Install required framework dependencies', 
+      value: 'peer' 
+    },
+  ];
+
   const { libraries } = await inquirer.prompt([
     {
       type: 'checkbox',
       name: 'libraries',
       message: chalk.yellow('📦 Select the libraries you want to install:'),
-      choices: [
-        { name: '@undp/data-viz (for visualizations)', value: '@undp/data-viz' },
-        { name: 'lucide-react (for icons)', value: 'lucide-react' },
-        { name: '@tanstack/react-router (for routing)', value: '@tanstack/react-router' },
-        { name: '@tanstack/react-query (for state management and fetching data from api)', value: '@tanstack/react-query' },
-      ],
-      default: ['@undp/data-viz', 'lucide-react'], // optional default selection
+      choices: libraryChoices,
+      default: ['@undp/data-viz', 'lucide-react'],
     },
   ]);
-  const installLucide = libraries.includes('lucide-react');  
-  const installDataViz = libraries.includes('@undp/data-viz');  
-  const installRouter = libraries.includes('@tanstack/react-router'); 
-  const installQuery = libraries.includes('@tanstack/react-query');  
-
-  let installDataVizPeerDeps = false;
-  if (installDataViz) {
-    const { peerDeps } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'peerDeps',
-        message: chalk.yellow('📦 Add peer dependencies for @undp/data-viz?'),
-        choices: ['Yes', 'No'],
-        default: 'Yes',
-      },
-    ]);
-    installDataVizPeerDeps = peerDeps === 'Yes'
-  }
 
   let addPostCSSScripts = false;
 
-  if(!installRouter) {
+  if(framework !== 'next-basic' && framework !== 'next-auth') {
     const { postCSS } = await inquirer.prompt([
       {
         type: 'list',
         name: 'postCSS',
         message: chalk.yellow(
-          '⚙️ Add PostCSS script to flatten layers, wrap all classes in `.undp-container`, and reorder media queries (recommended if embedding in another app)?'
+          '⚙️ Add PostCSS script to flatten layers, wrap all classes in `.undp-container` (recommended if embedding in another app)?'
         ),
         choices: ['Yes', 'No'],
         default: 'Yes',
@@ -69,7 +95,7 @@ export async function promptUser(name) {
     addPostCSSScripts = postCSS === 'Yes';
   }
 
-  const { staticWebApp } = await inquirer.prompt([
+  const { staticWebApp } = framework !== 'next-basic' && framework !== 'next-auth' ? await inquirer.prompt([
     {
       type: 'list',
       name: 'staticWebApp',
@@ -77,20 +103,17 @@ export async function promptUser(name) {
       choices: ['Yes', 'No'],
       default: 'No',
     },
-  ]);
+  ]) : { staticWebApp: 'No' };
 
-  // Convert string responses to booleans for convenience
   const addStaticWebAppConfig = staticWebApp === 'Yes';
 
   rl.close();
+
   return {
     projectName,
-    installLucide,
-    installDataViz,
-    installDataVizPeerDeps,
+    libraries,
     addStaticWebAppConfig,
     addPostCSSScripts,
-    installRouter,
-    installQuery
+    framework, 
   };
 }

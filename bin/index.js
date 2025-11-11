@@ -5,14 +5,22 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { promptUser } from './promptUser.js';
-import { generateFiles } from './generateFiles.js';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 import { printSuccess, createFolders } from './utils/index.js';
+import { generatePackageJson, generateViteConfig,  generateIndexHtml} from './generateFiles/index.js';
+
+function copyFolder(source, destination) {
+  fs.cpSync(source, destination, { recursive: true, force: true });
+}
 
 async function main() {
-  // Get user configuration
   const args = process.argv.slice(2);
   const projectName = args[0];
   const config = await promptUser(projectName);
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
   const projectPath = path.resolve(process.cwd(), config.projectName);
   console.log(chalk.gray('\n' + '─'.repeat(60)));
@@ -22,22 +30,38 @@ async function main() {
 
   process.chdir(projectPath);
   
+  const baseFolder = config.framework.includes('vite') ? 'vite' : 'next';
   
-  createFolders(path.join(projectPath, 'public'), false);
-  createFolders(path.join(projectPath, 'src'), false);
-  createFolders(path.join(projectPath, 'src', 'styles'), false);
-  createFolders(path.join(projectPath, 'src', 'assets'), false);
+  const secondaryFolder = config.libraries.includes('@undp/data-viz') ? 'withDataViz' : 'withoutDataViz';
 
-  if(config.installRouter) {
-    createFolders(path.join(projectPath, 'src', 'routes'), false);
-    createFolders(path.join(projectPath, 'src', 'components'), false);
-  }
+  let tertiaryFolder = 'basic';
 
-  if(config.installRouter && config.installQuery) {
-    createFolders(path.join(projectPath, 'src', 'integration'), false);
+  switch (config.framework) {
+    case 'vite-query':
+      tertiaryFolder = 'query';
+      break;
+    case 'vite-router':
+      tertiaryFolder = 'router';
+      break;
+    case 'vite-full':
+      tertiaryFolder = 'query+router';
+      break;
+    case 'next-auth':
+      tertiaryFolder = 'auth';
+      break;
+    default:
+      break;
   }
   
-  generateFiles(config);
+  copyFolder(path.join(__dirname, `./templates/${baseFolder}/${secondaryFolder}/${tertiaryFolder}`), projectPath)
+
+  if (config.framework.includes('vite')) {
+    fs.writeFileSync('vite.config.ts', generateViteConfig(config));
+    fs.writeFileSync('index.html', generateIndexHtml(config));
+  }
+  fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
+  
+  console.log(chalk.green('  ✓ Project folder and files generated'));
 
   const { installNow } = await inquirer.prompt([
     {
@@ -54,14 +78,14 @@ async function main() {
       execSync('npm install', { stdio: 'inherit' })
       console.log(chalk.green('  ✓ All dependencies installed'));
     } catch {
-      console.log(chalk.yellow('  ⚠️  Skipped installing dependencies (npm not installed or error occurred)'));
+      console.log(chalk.yellow('  ⚠️ Skipped installing dependencies (npm not installed or error occurred)'));
     }
   }
   try {
     execSync('git init', { stdio: 'ignore' });
     console.log(chalk.green('  ✓ Git repository initialized'));
   } catch {
-    console.log(chalk.yellow('  ⚠️  Skipped git init (Git not installed or error occurred)'));
+    console.log(chalk.yellow('  ⚠️ Skipped git init (Git not installed or error occurred)'));
   }
   printSuccess(config, installNow);
 }
