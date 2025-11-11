@@ -42,13 +42,6 @@ You don’t need to install it globally — just use **npx**:
 npx @undp/create-app my-project
 ```
 
-or install it globally
-
-```bash
-npm install -g @undp/create-app
-create-undp-app my-project
-```
-
 ---
 
 ## 📦 Getting started

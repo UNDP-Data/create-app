@@ -12,8 +12,6 @@ function getLatestVersion(pkg) {
 
 export function generatePackageJson(config) {
   const designSystemVer = `^${getLatestVersion('@undp/design-system-react')}`
-  const dataVizVer = `^${getLatestVersion('@undp/data-viz')}`
-  const lucideReactVer = `^${getLatestVersion('lucide-react')}`
   const dependencies = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
     "@undp/design-system-react": designSystemVer,
     "react": "^19.2.0",
@@ -58,10 +56,12 @@ export function generatePackageJson(config) {
       break;
   }
   if (config.libraries.includes('@undp/data-viz')) {
-      dependencies['@undp/data-viz'] = dataVizVer;
+    const dataVizVer = `^${getLatestVersion('@undp/data-viz')}`
+    dependencies['@undp/data-viz'] = dataVizVer;
   }
   if (config.libraries.includes('lucide-react')) {
-      dependencies['lucide-react'] = lucideReactVer;    
+    const lucideReactVer = `^${getLatestVersion('lucide-react')}`
+    dependencies['lucide-react'] = lucideReactVer;    
   }
   const devDependencies = config.framework !== 'next-basic' && config.framework !== 'next-auth' ?  {
     "@eslint/config-array": "^0.21.1",

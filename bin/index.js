@@ -8,7 +8,12 @@ import { promptUser } from './promptUser.js';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { printSuccess, createFolders } from './utils/index.js';
-import { generatePackageJson, generateViteConfig,  generateIndexHtml} from './generateFiles/index.js';
+import { 
+  generatePackageJson,
+  generateViteConfig,  
+  generateIndexHtml,
+  generateStaticWebAppConfig,
+} from './generateFiles/index.js';
 
 function copyFolder(source, destination) {
   fs.cpSync(source, destination, { recursive: true, force: true });
@@ -58,6 +63,9 @@ async function main() {
   if (config.framework.includes('vite')) {
     fs.writeFileSync('vite.config.ts', generateViteConfig(config));
     fs.writeFileSync('index.html', generateIndexHtml(config));
+    if (config.addStaticWebAppConfig) {      
+      fs.writeFileSync('staticwebapp.config.json', generateStaticWebAppConfig());
+    }
   }
   fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
   
