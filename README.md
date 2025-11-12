@@ -8,29 +8,29 @@
 
 ## 🚀 Features
 
-- ⚡ **React + TypeScript + TailwindCSS** setup out of the box  
-- 🚀 **Vite support** for fast SPA development, including optional **state management**, and **routing** using **tanstack libraries**
-- 🌐 **Next.js support** for full-stack apps, including optional **authentication (Auth)** using **Better Auth**
-- 🧱 Preconfigured for UNDP’s Design System  
-- 📊 Optional integration with **@undp/data-viz** for data visualization  
-- 🧼 ESLint + Prettier ready
+- ⚡ **React + TypeScript** setup out of the box  
+- 🎨 Includes **Tailwind CSS** for styling  
+- 🧠 Includes **Zustand** for state management  
+- 🚀 **Vite support** for fast SPA development, including optional **routing** and **data fetching** with **TanStack** libraries  
+- 🌐 **Next.js support** for full-stack apps, including optional **authentication** with **Better Auth**  
+- 🧱 Preconfigured for **UNDP’s Design System**  
+- 📊 Optional integration with **@undp/data-viz** for interactive data visualization  
+- 🧼 **ESLint** + **Prettier** preconfigured for consistent code style  
 
 ---
 
 ## 🧩 Pre-configured setups
 
-- Vite + Tailwind
-    - Lightweight and blazing fast React starter (ideal if you are planning to embed the SPA in another page)
-- Vite + Tailwind + Query
-    - Optimized starter with data fetching powered by TanStack Query (ideal if you are planning to embed the SPA in another page)
-- Vite + Tailwind + Router
-    - Fast starter with built-in routing support
-- Vite + Tailwind + Router + Query
-    - Complete Vite setup for routing and data management
-- Next.js + Tailwind
-    - Production-ready React framework with file-based routing and SSR
-- Next.js + Tailwind + Auth
-    - Secure, full-stack framework with authentication and SSR
+All setups include **Tailwind CSS** for styling and **Zustand** for state management.
+
+| Framework | Variants | Description |
+|------------|-----------|-------------|
+| **Vite** | Basic | Minimal React + TypeScript setup |
+| **Vite** | + Query | Adds TanStack Query for data fetching |
+| **Vite** | + Router | Adds TanStack Router for routing |
+| **Vite** | + Router + Query | Full-featured Vite setup |
+| **Next.js** | Basic | SSR and file-based routing |
+| **Next.js** | + Auth | Includes authentication via Better Auth |
 
 ---
 
@@ -39,7 +39,7 @@
 You don’t need to install it globally — just use **npx**:
 
 ```bash
-npx @undp/create-app my-project
+npx @undp/create-app my-undp-app
 ```
 
 ---
@@ -49,7 +49,7 @@ npx @undp/create-app my-project
 After running the CLI, navigate into your project and start the dev server:
 
 ```bash
-cd my-project && npm run dev
+cd my-undp-app && npm run dev
 ```
 
 *Please note: If you have not installed the dependencies then you might want to run `npm install` before `npm run dev`.*

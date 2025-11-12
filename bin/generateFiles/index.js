@@ -2,3 +2,7 @@ export { generatePackageJson } from './generatePackageJson.js';
 export { generateViteConfig } from './generateViteConfig.js';
 export { generateIndexHtml } from './generateIndexHtml.js';
 export { generateStaticWebAppConfig } from './generateStaticWebAppConfig.js';
+export { generateLayoutForNext } from './generateLayoutForNext.js';
+export { generateStylesCss } from './generateStylesCss.js';
+export { generateNextEnvTypes } from './generateNextEnvTypes.js';
+export { generateEnv } from './generateEnv.js';

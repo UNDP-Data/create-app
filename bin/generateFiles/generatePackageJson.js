@@ -2,7 +2,6 @@ import { execSync } from 'child_process';
 import chalk from 'chalk';
 
 function getLatestVersion(pkg) {
-  console.log(chalk.gray(`  Fetching latest version for ${pkg}`));
   try {
     return execSync(`npm show ${pkg} version`).toString().trim();
   } catch {
@@ -11,7 +10,9 @@ function getLatestVersion(pkg) {
 }
 
 export function generatePackageJson(config) {
+  console.log(chalk.gray(`  Fetching latest version for packages...`));
   const designSystemVer = `^${getLatestVersion('@undp/design-system-react')}`
+  const zustandVer = `^${getLatestVersion('zustand')}`
   const dependencies = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
     "@undp/design-system-react": designSystemVer,
     "react": "^19.2.0",
@@ -27,11 +28,13 @@ export function generatePackageJson(config) {
     "math-expression-evaluator": "^2.0.7",
     "pmtiles": "^4.3.0",
     "react-globe.gl": "^2.37.0",
-    "three": "^0.180.0"
+    "three": "^0.180.0",
+    "zustand": zustandVer
   } : {
     "@undp/design-system-react": designSystemVer,
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "zustand": zustandVer
   };
 
   switch (config.framework) {
@@ -63,7 +66,7 @@ export function generatePackageJson(config) {
     const lucideReactVer = `^${getLatestVersion('lucide-react')}`
     dependencies['lucide-react'] = lucideReactVer;    
   }
-  const devDependencies = config.framework !== 'next-basic' && config.framework !== 'next-auth' ?  {
+  const devDependencies = config.framework.includes('vite') ?  {
     "@eslint/config-array": "^0.21.1",
     "@eslint/js": "^9.39.1",
     "@nabla/vite-plugin-eslint": "^2.0.6",
@@ -138,7 +141,7 @@ export function generatePackageJson(config) {
     sideEffects: [
       '*.css'
     ],
-    scripts: config.framework === 'next' 
+    scripts: config.framework.includes('next')
       ? {
         dev: 'next dev',
         build: 'next build',

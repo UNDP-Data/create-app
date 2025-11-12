@@ -22,32 +22,15 @@ export async function promptUser(name) {
     {
       type: 'list',
       name: 'framework',
-      message: chalk.yellow('📦 Select the framework you prefer to use:\n'),
+      loop: false,
+      message: chalk.yellow('📦 Choose your setup (all include Tailwind for styling & Zustand for state management):\n'),
       choices: [
-        { 
-          name: 'Vite + Tailwind — Lightweight and blazing fast React starter (ideal if you are planning to embed the SPA in another page)', 
-          value: 'vite-basic' 
-        },
-        { 
-          name: 'Vite + Tailwind + Query — Optimized starter with data fetching powered by TanStack Query (ideal if you are planning to embed the SPA in another page)', 
-          value: 'vite-query' 
-        },
-        { 
-          name: 'Vite + Tailwind + Router — Fast starter with built-in routing support', 
-          value: 'vite-router' 
-        },
-        { 
-          name: 'Vite + Tailwind + Router + Query — Complete Vite setup for routing and data management', 
-          value: 'vite-full' 
-        },
-        { 
-          name: 'Next.js + Tailwind — Production-ready React framework with file-based routing and SSR', 
-          value: 'next-basic' 
-        },
-        { 
-          name: 'Next.js + Tailwind + Auth — Secure, full-stack framework with authentication and SSR', 
-          value: 'next-auth' 
-        },
+        { name: 'Vite — Basic React setup', value: 'vite-basic' },
+        { name: 'Vite + Query — With TanStack Query', value: 'vite-query' },
+        { name: 'Vite + Router — With routing support', value: 'vite-router' },
+        { name: 'Vite + Router + Query — Full Vite setup', value: 'vite-full' },
+        { name: 'Next.js — SSR and file routing', value: 'next-basic' },
+        { name: 'Next.js + Auth — With authentication', value: 'next-auth' },
       ],
       default: 'vite-basic',
     },

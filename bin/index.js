@@ -13,6 +13,10 @@ import {
   generateViteConfig,  
   generateIndexHtml,
   generateStaticWebAppConfig,
+  generateStylesCss,
+  generateLayoutForNext,
+  generateNextEnvTypes,
+  generateEnv,
 } from './generateFiles/index.js';
 
 function copyFolder(source, destination) {
@@ -37,7 +41,6 @@ async function main() {
   
   const baseFolder = config.framework.includes('vite') ? 'vite' : 'next';
   
-  const secondaryFolder = config.libraries.includes('@undp/data-viz') ? 'withDataViz' : 'withoutDataViz';
 
   let tertiaryFolder = 'basic';
 
@@ -58,18 +61,25 @@ async function main() {
       break;
   }
   
-  copyFolder(path.join(__dirname, `./templates/${baseFolder}/${secondaryFolder}/${tertiaryFolder}`), projectPath)
+  
 
   if (config.framework.includes('vite')) {
+    copyFolder(path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`), projectPath);
     fs.writeFileSync('vite.config.ts', generateViteConfig(config));
     fs.writeFileSync('index.html', generateIndexHtml(config));
+    fs.writeFileSync('src/styles/style.css', generateStylesCss(config.libraries.includes('@undp/data-viz')));
     if (config.addStaticWebAppConfig) {      
       fs.writeFileSync('staticwebapp.config.json', generateStaticWebAppConfig());
     }
+  } else {
+    copyFolder(path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`), projectPath);
+    fs.writeFileSync('app/layout.tsx', generateLayoutForNext(config.libraries.includes('@undp/data-viz'), config.projectName));
+    fs.writeFileSync('next-env.d.ts', generateNextEnvTypes());
+    if (config.framework === 'next-auth') fs.writeFileSync('.env.local', generateEnv());
   }
   fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
   
-  console.log(chalk.green('  ✓ Project folder and files generated'));
+  console.log(chalk.green('  ✓ Project folder and files generated\n'));
 
   const { installNow } = await inquirer.prompt([
     {
