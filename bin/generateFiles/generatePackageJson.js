@@ -38,14 +38,7 @@ export function generatePackageJson(config) {
   };
 
   switch (config.framework) {
-    case 'vite-query':
-      dependencies['@tanstack/react-query'] = '^5.90.7';
-      break;
     case 'vite-router':  
-      dependencies['@tanstack/react-router'] = '^1.135.0';
-      break;
-    case 'vite-full':
-      dependencies['@tanstack/react-query'] = '^5.90.7';  
       dependencies['@tanstack/react-router'] = '^1.135.0';
       break;
     case 'next-basic':  
@@ -57,6 +50,9 @@ export function generatePackageJson(config) {
       break;
     default:
       break;
+  }
+  if (config.query) { 
+    dependencies['@tanstack/react-query'] = '^5.90.7';
   }
   if (config.libraries.includes('@undp/data-viz')) {
     const dataVizVer = `^${getLatestVersion('@undp/data-viz')}`

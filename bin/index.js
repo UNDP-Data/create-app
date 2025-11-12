@@ -17,6 +17,7 @@ import {
   generateLayoutForNext,
   generateNextEnvTypes,
   generateEnv,
+  generatePageForNext,
 } from './generateFiles/index.js';
 
 function copyFolder(source, destination) {
@@ -45,14 +46,17 @@ async function main() {
   let tertiaryFolder = 'basic';
 
   switch (config.framework) {
-    case 'vite-query':
-      tertiaryFolder = 'query';
+    case 'vite-basic':
+      if (config.query)
+        tertiaryFolder = 'query';
+      else
+        tertiaryFolder = 'basic';
       break;
     case 'vite-router':
-      tertiaryFolder = 'router';
-      break;
-    case 'vite-full':
-      tertiaryFolder = 'query+router';
+      if (config.query)
+        tertiaryFolder = 'query+router';
+      else
+        tertiaryFolder = 'router';
       break;
     case 'next-auth':
       tertiaryFolder = 'auth';
@@ -73,9 +77,11 @@ async function main() {
     }
   } else {
     copyFolder(path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`), projectPath);
-    fs.writeFileSync('app/layout.tsx', generateLayoutForNext(config.libraries.includes('@undp/data-viz'), config.projectName));
+    fs.writeFileSync('app/layout.tsx', generateLayoutForNext(config.libraries.includes('@undp/data-viz'), config.projectName, config.query));
     fs.writeFileSync('next-env.d.ts', generateNextEnvTypes());
+    fs.writeFileSync('app/page.tsx', generatePageForNext(config.query));
     if (config.framework === 'next-auth') fs.writeFileSync('.env.local', generateEnv());
+    if (config.query) copyFolder(path.join(__dirname, './templates/queryIntegrationForNext'), projectPath);
   }
   fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
   

@@ -25,16 +25,28 @@ export async function promptUser(name) {
       loop: false,
       message: chalk.yellow('📦 Choose your setup (all include Tailwind for styling & Zustand for state management):\n'),
       choices: [
-        { name: 'Vite — Basic React setup', value: 'vite-basic' },
-        { name: 'Vite + Query — With TanStack Query', value: 'vite-query' },
+        { name: 'Vite — Basic React setup (ideal for embedding)', value: 'vite-basic' },
         { name: 'Vite + Router — With routing support', value: 'vite-router' },
-        { name: 'Vite + Router + Query — Full Vite setup', value: 'vite-full' },
         { name: 'Next.js — SSR and file routing', value: 'next-basic' },
         { name: 'Next.js + Auth — With authentication', value: 'next-auth' },
       ],
       default: 'vite-basic',
     },
+  ]);  
+
+  const { addQuery } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'addQuery',
+      message: chalk.yellow(
+        '⚙️ Add @tanstack/query for data fetching?'
+      ),
+      choices: ['Yes', 'No'],
+      default: 'No',
+    },
   ]);
+
+  const query = addQuery === 'Yes';
 
   const libraryChoices = [
     { 
@@ -97,6 +109,7 @@ export async function promptUser(name) {
     libraries,
     addStaticWebAppConfig,
     addPostCSSScripts,
-    framework, 
+    framework,
+    query,
   };
 }
