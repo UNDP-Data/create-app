@@ -7,3 +7,4 @@ export { generateStylesCss } from './generateStylesCss.js';
 export { generateNextEnvTypes } from './generateNextEnvTypes.js';
 export { generateEnv } from './generateEnv.js';
 export { generatePageForNext } from './generatePageForNext.js';
+export { generateGitIgnore } from './generateGitIgnore.js';

@@ -18,6 +18,7 @@ import {
   generateNextEnvTypes,
   generateEnv,
   generatePageForNext,
+  generateGitIgnore,
 } from './generateFiles/index.js';
 
 function copyFolder(source, destination) {
@@ -83,6 +84,7 @@ async function main() {
     if (config.framework === 'next-auth') fs.writeFileSync('.env.local', generateEnv());
     if (config.query) copyFolder(path.join(__dirname, './templates/queryIntegrationForNext'), projectPath);
   }
+  fs.writeFileSync('.gitignore', generateGitIgnore(config.framework.includes('vite')));
   fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
   
   console.log(chalk.green('  ✓ Project folder and files generated\n'));
