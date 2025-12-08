@@ -15,8 +15,8 @@ export function generatePackageJson(config) {
   const zustandVer = `^${getLatestVersion('zustand')}`
   const dependencies = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
     "@undp/design-system-react": designSystemVer,
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
     "ajv": "^8.17.1",
@@ -32,8 +32,8 @@ export function generatePackageJson(config) {
     "zustand": zustandVer
   } : {
     "@undp/design-system-react": designSystemVer,
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "zustand": zustandVer
   };
 
@@ -42,11 +42,11 @@ export function generatePackageJson(config) {
       dependencies['@tanstack/react-router'] = '^1.135.0';
       break;
     case 'next-basic':  
-      dependencies['next'] = '16.0.1';
+      dependencies['next'] = '16.0.7';
       break;
     case 'next-auth':  
       dependencies['better-auth'] = '^1.3.34';
-      dependencies['next'] = '16.0.1';
+      dependencies['next'] = '16.0.7';
       break;
     default:
       break;
@@ -68,8 +68,8 @@ export function generatePackageJson(config) {
     "@nabla/vite-plugin-eslint": "^2.0.6",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.7",
     "autoprefixer": "^10.4.21",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.1",
@@ -95,14 +95,14 @@ export function generatePackageJson(config) {
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",
     "vite-plugin-static-copy": "^3.1.4",
-    "@vitejs/plugin-react": "^5.1.0",
+    "@vitejs/plugin-react": "^5.1.2",
     "@tailwindcss/vite": "^4.1.17"
   } : {
     "@eslint/js": "^9.39.1",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.7",
     "eslint": "^9.39.1",
     "eslint-config-love": "^133.0.0",
     "eslint-config-next": "16.0.1",
