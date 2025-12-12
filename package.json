@@ -1,6 +1,6 @@
 {
   "name": "@undp/create-app",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "description": "UNDP's project scaffolding tool",
   "bin": {
     "create-undp-app": "./bin/index.js"

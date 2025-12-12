@@ -15,8 +15,8 @@ export function generatePackageJson(config) {
   const zustandVer = `^${getLatestVersion('zustand')}`
   const dependencies = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
     "@undp/design-system-react": designSystemVer,
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
     "ajv": "^8.17.1",
@@ -32,27 +32,27 @@ export function generatePackageJson(config) {
     "zustand": zustandVer
   } : {
     "@undp/design-system-react": designSystemVer,
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "zustand": zustandVer
   };
 
   switch (config.framework) {
     case 'vite-router':  
-      dependencies['@tanstack/react-router'] = '^1.135.0';
+      dependencies['@tanstack/react-router'] = '^1.141.1';
       break;
     case 'next-basic':  
-      dependencies['next'] = '16.0.7';
+      dependencies['next'] = '16.0.10';
       break;
     case 'next-auth':  
       dependencies['better-auth'] = '^1.3.34';
-      dependencies['next'] = '16.0.7';
+      dependencies['next'] = '16.0.10';
       break;
     default:
       break;
   }
   if (config.query) { 
-    dependencies['@tanstack/react-query'] = '^5.90.7';
+    dependencies['@tanstack/react-query'] = '^5.90.12';
   }
   if (config.libraries.includes('@undp/data-viz')) {
     const dataVizVer = `^${getLatestVersion('@undp/data-viz')}`
