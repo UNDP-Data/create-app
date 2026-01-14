@@ -8,7 +8,7 @@ export function generateIndexHtml(config) {
     <title>${config.projectName}</title>
   </head>
   <body>
-    ${!config.addPostCSSScripts ? `<div id="root"></div>` : `<div id="undp-container">
+    ${!config.addPostCSSScripts ? `<div id="root"></div>` : `<div class="undp-container">
       <div id="root"></div>
     </div>` }
     <script type="module" src="/src/main.tsx"></script>
