@@ -58,24 +58,36 @@ export default defineConfig({
               });
             });
           },
-        },` : ''}
-        {
-          postcssPlugin: 'move-media-queries-last', // If you want to reorder media queries to the end
-          OnceExit(root) {
-            const mediaQueries = [];
-
-            // Collect all media queries
-            root.walkAtRules('media', mediaRule => {
-              mediaQueries.push(mediaRule.clone());
-              mediaRule.remove();
-            });
-
-            // Append them at the end
-            mediaQueries.forEach(mediaQuery => {
-              root.append(mediaQuery);
-            });
-          },
         },
+        {
+          postcssPlugin: 'move-media-queries-by-breakpoint',
+          OnceExit(root) {
+            const mediaRules = [];
+
+            root.walkAtRules('media', rule => {
+              const match = rule.params.match(/min-width:\s*([\d.]+)(px|rem)/);
+
+              if (!match) return;
+
+              const value = parseFloat(match[1]);
+              const unit = match[2];
+
+              // Normalize to px (assuming 16px root for sorting)
+              const pxValue = unit === 'rem' ? value * 16 : value;
+
+              mediaRules.push({
+                pxValue,
+                rule: rule.clone(),
+              });
+
+              rule.remove();
+            });
+
+            mediaRules
+              .sort((a, b) => a.pxValue - b.pxValue)
+              .forEach(({ rule }) => root.append(rule));
+          },
+        },` : ''}
       ],
     },
   },

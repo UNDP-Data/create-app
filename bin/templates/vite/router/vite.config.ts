@@ -26,23 +26,6 @@ export default defineConfig({
       plugins: [
         postcssNested(),
         tailwindcss(),
-        {
-          postcssPlugin: 'move-media-queries-last', // If you want to reorder media queries to the end
-          OnceExit(root) {
-            const mediaQueries = [];
-
-            // Collect all media queries
-            root.walkAtRules('media', mediaRule => {
-              mediaQueries.push(mediaRule.clone());
-              mediaRule.remove();
-            });
-
-            // Append them at the end
-            mediaQueries.forEach(mediaQuery => {
-              root.append(mediaQuery);
-            });
-          },
-        },
       ],
     },
   },
