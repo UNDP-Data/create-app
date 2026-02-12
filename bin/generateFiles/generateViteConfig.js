@@ -6,7 +6,8 @@ import eslint from '@nabla/vite-plugin-eslint';
 import { visualizer } from 'rollup-plugin-visualizer';
 import postcssNested from 'postcss-nested';
 import tailwindcss from '@tailwindcss/postcss';${config.addStaticWebAppConfig ? `
-import { viteStaticCopy } from 'vite-plugin-static-copy';` : ''}
+import { viteStaticCopy } from 'vite-plugin-static-copy';` : ''}${config.addPostCSSScripts ? `
+import { AtRule } from 'postcss';` : ''}
 
 export default defineConfig({
   plugins: [
