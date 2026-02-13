@@ -81,7 +81,7 @@ export async function promptUser(name) {
         type: 'list',
         name: 'postCSS',
         message: chalk.yellow(
-          '⚙️ Add PostCSS script to flatten layers, wrap all classes in `.undp-container` (recommended if embedding in another app)?'
+          '⚙️ Add PostCSS script to wrap all classes in `.undp-container` (recommended if embedding in another app)?'
         ),
         choices: ['Yes', 'No'],
         default: 'Yes',

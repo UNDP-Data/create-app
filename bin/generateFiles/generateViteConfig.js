@@ -67,6 +67,55 @@ export default defineConfig({
             const containerRules = [];
 
             function extractMinWidth(params) {
+              let match = params.match(/min-width:\s*([\d.]+)(px|rem)/);
+              if (!match) {
+                match = params.match(/width\s*>=\s*([\d.]+)(px|rem)/);
+              }
+              if (!match) return null;
+
+              const value = parseFloat(match[1]);
+              const unit = match[2];
+              return unit === 'rem' ? value * 16 : value;
+            }
+
+            root.walkAtRules(rule => {
+              if (rule.name !== 'media' && rule.name !== 'container') return;
+
+              const pxValue = extractMinWidth(rule.params);
+              if (pxValue === null) return;
+
+              const entry = {
+                pxValue,
+                rule: rule.clone(),
+              };
+
+              if (rule.name === 'media') {
+                mediaRules.push(entry);
+              } else {
+                containerRules.push(entry);
+              }
+
+              rule.remove();
+            });
+
+            // 1. Append media first
+            mediaRules
+              .sort((a, b) => a.pxValue - b.pxValue)
+              .forEach(({ rule }) => root.append(rule));
+
+            // 2. Append container after
+            containerRules
+              .sort((a, b) => a.pxValue - b.pxValue)
+              .forEach(({ rule }) => root.append(rule));
+          },
+        },` : `
+        {
+          postcssPlugin: 'move-responsive-queries',
+          OnceExit(root) {
+            const mediaRules = [];
+            const containerRules = [];
+
+            function extractMinWidth(params) {
               const match = params.match(/min-width:\s*([\d.]+)(px|rem)/);
               if (!match) return null;
 
@@ -105,7 +154,8 @@ export default defineConfig({
               .sort((a, b) => a.pxValue - b.pxValue)
               .forEach(({ rule }) => root.append(rule));
           },
-        },` : ''}
+        },`
+        }
       ],
     },
   },
