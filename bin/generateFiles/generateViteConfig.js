@@ -67,9 +67,9 @@ export default defineConfig({
             const containerRules = [];
 
             function extractMinWidth(params) {
-              let match = params.match(/min-width:\s*([\d.]+)(px|rem)/);
+              let match = params.match(/min-width:\\s*([\\d.]+)(px|rem)/);
               if (!match) {
-                match = params.match(/width\s*>=\s*([\d.]+)(px|rem)/);
+                match = params.match(/width\\s*>=\\s*([\\d.]+)(px|rem)/);
               }
               if (!match) return null;
 
@@ -116,7 +116,10 @@ export default defineConfig({
             const containerRules = [];
 
             function extractMinWidth(params) {
-              const match = params.match(/min-width:\s*([\d.]+)(px|rem)/);
+              let match = params.match(/min-width:\\s*([\\d.]+)(px|rem)/);
+              if (!match) {
+                match = params.match(/width\\s*>=\\s*([\\d.]+)(px|rem)/);
+              }
               if (!match) return null;
 
               const value = parseFloat(match[1]);
