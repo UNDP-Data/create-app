@@ -1,0 +1,6 @@
+{
+  "started": "Para comenzar, edita el archivo {{fileName}}.",
+  "count": "Contador: {{count}}",
+  "increaseCount": "Incrementar contador",
+  "decreaseCount": "Disminuir contador"
+}

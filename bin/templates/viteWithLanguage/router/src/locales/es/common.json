@@ -1,0 +1,11 @@
+{
+  "aboutPage": "Para editar esta página, edita el archivo {{fileName}} en la carpeta routes.",
+  "started": "Para comenzar, edita el archivo {{fileName}}.",
+  "count": "Contador: {{count}}",
+  "increaseCount": "Incrementar contador",
+  "decreaseCount": "Disminuir contador",
+  "subscribe": "Suscribirse al correo electrónico",
+  "footnote": "La nota al pie se puede agregar aquí",
+  "home": "Inicio",
+  "about": "Acerca de"
+}

@@ -7,35 +7,35 @@ export function About() {
     <>
       <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
         <img
-          src='./imgs/Vitejs-logo.svg'
+          src='/imgs/Vitejs-logo.svg'
           alt='vite logo'
           width='72px'
           style={{ marginLeft: 'auto', marginRight: 'auto' }}
         />
         <P marginBottom='none'>&</P>
         <img
-          src='./imgs/Tailwind_CSS_Logo.svg'
+          src='/imgs/Tailwind_CSS_Logo.svg'
           alt='tailwind logo'
           width='72px'
           style={{ marginLeft: 'auto', marginRight: 'auto' }}
         />
         <P marginBottom='none'>&</P>
         <img
-          src='./imgs/Tanstack-logo.png'
+          src='/imgs/Tanstack-logo.png'
           alt='tanstack logo'
           width='72px'
           style={{ marginLeft: 'auto', marginRight: 'auto' }}
         />
         <P marginBottom='none'>&</P>
         <img
-          src='./imgs/Zustand-logo.svg'
+          src='/imgs/Zustand-logo.svg'
           alt='Zustand logo'
           width='72px'
           style={{ marginLeft: 'auto', marginRight: 'auto' }}
         />
         <P marginBottom='none'>&</P>
         <img
-          src='./imgs/undp-logo-blue.svg'
+          src='/imgs/undp-logo-blue.svg'
           alt='UNDP logo'
           width='72px'
           style={{ marginLeft: 'auto', marginRight: 'auto' }}

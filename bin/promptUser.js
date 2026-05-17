@@ -48,6 +48,24 @@ export async function promptUser(name) {
 
   const query = addQuery === 'Yes';
 
+  let language = false;
+
+  if (framework === 'vite-basic' || framework === 'vite-router') {
+    const { addLanguage } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'addLanguage',
+        message: chalk.yellow(
+          '⚙️ Add multi language support (en, es, fr)?'
+        ),
+        choices: ['Yes', 'No'],
+        default: 'No',
+      },
+    ]);
+
+    language = addLanguage === 'Yes';
+  }
+
   const libraryChoices = [
     { 
       name: '@undp/data-viz — UNDP data visualization components', 
@@ -75,13 +93,13 @@ export async function promptUser(name) {
 
   let addPostCSSScripts = false;
 
-  if(framework !== 'next-basic' && framework !== 'next-auth') {
+  if(framework === 'vite-basic') {
     const { postCSS } = await inquirer.prompt([
       {
         type: 'list',
         name: 'postCSS',
         message: chalk.yellow(
-          '⚙️ Add PostCSS script to wrap all classes in `.undp-container` (recommended if embedding in another app)?'
+          '⚙️ Add PostCSS script to wrap all classes in `.undp-container` (recommended only if embedding in another app)?'
         ),
         choices: ['Yes', 'No'],
         default: 'Yes',
@@ -111,5 +129,6 @@ export async function promptUser(name) {
     addPostCSSScripts,
     framework,
     query,
+    language,
   };
 }

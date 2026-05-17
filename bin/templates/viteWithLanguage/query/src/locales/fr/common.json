@@ -1,0 +1,8 @@
+{
+  "started": "Pour commencer, modifiez le fichier {{fileName}}.",
+  "count": "Compteur : {{count}}",
+  "increaseCount": "Augmenter le compteur",
+  "decreaseCount": "Diminuer le compteur",
+  "dataLoading_one": "Données chargées avec succès. {{count}} élément dans la requête.",
+  "dataLoading_other": "Données chargées avec succès. {{count}} éléments dans la requête."
+}

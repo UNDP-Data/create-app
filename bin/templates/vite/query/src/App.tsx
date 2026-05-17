@@ -68,7 +68,7 @@ function App() {
         />
       </div>
       <P marginBottom='xl' className='text-center'>
-        To get started, edit the App.tsx file.
+        To get started, edit the App.tsx file.{' '}
         <span className='font-bold'>Count: {count}</span>
       </P>
       <div className='flex gap-4 justify-center mb-8'>

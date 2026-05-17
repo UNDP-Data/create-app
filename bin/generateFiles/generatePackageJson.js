@@ -13,10 +13,8 @@ export function generatePackageJson(config) {
   console.log(chalk.gray(`  Fetching latest version for packages...`));
   const designSystemVer = `^${getLatestVersion('@undp/design-system-react')}`
   const zustandVer = `^${getLatestVersion('zustand')}`
-  const dependencies = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
+  const dependenciesTemp = config.libraries.includes('peer') && config.libraries.includes('@undp/data-viz') ? {
     "@undp/design-system-react": designSystemVer,
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
     "ajv": "^8.17.1",
@@ -27,6 +25,8 @@ export function generatePackageJson(config) {
     "marked": "^16.4.1",
     "math-expression-evaluator": "^2.0.7",
     "pmtiles": "^4.3.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-globe.gl": "^2.37.0",
     "three": "^0.180.0",
     "zustand": zustandVer
@@ -36,6 +36,13 @@ export function generatePackageJson(config) {
     "react-dom": "^19.2.3",
     "zustand": zustandVer
   };
+
+  const dependencies = config.language && !config.framework.includes('next') ? {
+    ...dependenciesTemp, 
+    "i18next": "^26.0.8",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "react-i18next": "^17.0.6",
+  } : {...dependenciesTemp}
 
   switch (config.framework) {
     case 'vite-router':  
@@ -63,28 +70,15 @@ export function generatePackageJson(config) {
     dependencies['lucide-react'] = lucideReactVer;    
   }
   const devDependencies = config.framework.includes('vite') ?  {
-    "@eslint/config-array": "^0.21.1",
-    "@eslint/js": "^9.39.1",
-    "@nabla/vite-plugin-eslint": "^2.0.6",
+    "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.21",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^9.39.1",
-    "eslint-config-love": "^133.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-n": "^17.23.1",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "postcss": "^8.5.6",
     "postcss-nested": "^7.0.2",
-    "prettier": "^3.6.2",
     "rimraf": "^6.1.0",
     "rollup-plugin-visualizer": "^6.0.5",
     "tailwind-animate": "^0.2.10",
@@ -98,25 +92,13 @@ export function generatePackageJson(config) {
     "@vitejs/plugin-react": "^5.1.2",
     "@tailwindcss/vite": "^4.1.17"
   } : {
-    "@eslint/js": "^9.39.1",
+    "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.1",
-    "eslint-config-love": "^133.0.0",
-    "eslint-config-next": "16.0.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-n": "^17.23.1",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "postcss": "^8.5.6",
     "postcss-nested": "^7.0.2",
-    "prettier": "^3.6.2",
     "rimraf": "^6.1.0",
     "rollup-plugin-visualizer": "^6.0.5",
     "tailwind-animate": "^0.2.10",

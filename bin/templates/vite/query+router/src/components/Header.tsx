@@ -10,7 +10,7 @@ export default function HeaderEl() {
   return (
     <Header>
       <HeaderLogoUnit
-        hyperlink='./'
+        hyperlink='/'
         siteName='Site name'
         siteSubName='Sub-site name'
       />

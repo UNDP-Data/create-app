@@ -2,7 +2,6 @@ export function generateViteConfig(config) {
   return `import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import eslint from '@nabla/vite-plugin-eslint';
 import { visualizer } from 'rollup-plugin-visualizer';
 import postcssNested from 'postcss-nested';
 import tailwindcss from '@tailwindcss/postcss';${config.addStaticWebAppConfig ? `
@@ -16,7 +15,6 @@ export default defineConfig({
         plugins: ['babel-plugin-react-compiler'],
       },
     }),
-    eslint(),
     visualizer({ filename: 'stats.html', open: true }),${config.addStaticWebAppConfig ? `
     viteStaticCopy({
       targets: [{ src: 'staticwebapp.config.json', dest: '' }],
@@ -169,8 +167,8 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/react')) return 'react';
-          if (id.includes('@undp/design-system-react')) return 'undp';${config.libraries.includes('@undp/data-viz') ? `
-          if (id.includes('@undp/data-viz')) return 'undp';` : ''}
+          if (id.includes('@undp/design-system-react')) return 'undp-design-system';${config.libraries.includes('@undp/data-viz') ? `
+          if (id.includes('@undp/data-viz')) return 'undp-data-viz';` : ''}
         },
         chunkFileNames: '[name]-[hash].js',
         assetFileNames: '[name].[ext]',

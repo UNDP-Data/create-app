@@ -41,7 +41,7 @@ async function main() {
 
   process.chdir(projectPath);
   
-  const baseFolder = config.framework.includes('vite') ? 'vite' : 'next';
+  const baseFolder = config.framework.includes('vite') ? config.language ? 'viteWithLanguage' : 'vite' : 'next';
   
 
   let tertiaryFolder = 'basic';
