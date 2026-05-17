@@ -8,6 +8,6 @@
   "footnote":"Footnote can be added here",
   "home":"Home",
   "query":"Query demo",
-  "dataLoading_one": "Data loaded successfully. {{length}} element in the query.",
-  "dataLoading_other": "Data loaded successfully. {{length}} elements in the query."
+  "dataLoading_one": "Data loaded successfully. {{count}} element in the query.",
+  "dataLoading_other": "Data loaded successfully. {{count}} elements in the query."
 }
