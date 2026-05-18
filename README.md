@@ -16,7 +16,8 @@
 - 🎨 Preconfigured for **UNDP’s Design System**  
 - ⚡️ Optional integration with **Tanstack query** for data fetching  
 - 📊 Optional integration with **@undp/data-viz** for interactive data visualization  
-- ✨ **ESLint** + **Prettier** preconfigured for consistent code style  
+- 🌐 Optional integration with **i18next** for internationalization  
+- ✨ **Biome** preconfigured for consistent code style  
 
 ---
 
