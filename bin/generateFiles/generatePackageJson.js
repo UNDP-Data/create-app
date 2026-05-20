@@ -72,9 +72,11 @@ export function generatePackageJson(config) {
   const devDependencies = config.framework.includes('vite') ?  {
     "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
     "autoprefixer": "^10.4.21",
     "babel-plugin-react-compiler": "^1.0.0",
     "postcss": "^8.5.6",
@@ -87,10 +89,8 @@ export function generatePackageJson(config) {
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3",
-    "vite": "^7.2.2",
-    "vite-plugin-static-copy": "^3.1.4",
-    "@vitejs/plugin-react": "^5.1.2",
-    "@tailwindcss/vite": "^4.1.17"
+    "vite": "^8.0.13",
+    "vite-plugin-static-copy": "^4.1.0"
   } : {
     "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.17",
@@ -125,14 +125,14 @@ export function generatePackageJson(config) {
         build: 'next build',
         start: 'next start',
         clean: 'rimraf node_modules && rimraf .next && rimraf package-lock.json',
-        lint: 'npx eslint --fix && npx prettier . --write'
+        lint: "biome check . --write"
       } : {
         dev: 'vite',
         build: 'tsc && vite build',
         preview: 'vite preview',
         clean: 'rimraf node_modules && rimraf dist && rimraf package-lock.json',
         'install:build': 'npm install && tsc && vite build',
-        lint: 'npx eslint --fix && npx prettier . --write'
+        lint: "biome check . --write"
       },
     dependencies: dependencies,
     devDependencies: devDependencies
