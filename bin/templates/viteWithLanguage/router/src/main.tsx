@@ -78,7 +78,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootElement = document.getElementById('root');
-if (rootElement && !rootElement.innerHTML) {
+if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <I18nextProvider i18n={i18n}>

@@ -6,7 +6,7 @@ import App from './App';
 import i18n from './i18n';
 
 const rootElement = document.getElementById('root');
-if (rootElement && !rootElement.innerHTML) {
+if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <App />
