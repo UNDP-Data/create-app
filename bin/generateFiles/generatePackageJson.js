@@ -69,6 +69,9 @@ export function generatePackageJson(config) {
     const lucideReactVer = `^${getLatestVersion('lucide-react')}`
     dependencies['lucide-react'] = lucideReactVer;    
   }
+  const sortedDependencies = Object.fromEntries(
+    Object.entries(dependencies).sort(([a], [b]) => a.localeCompare(b))
+  );
   const devDependencies = config.framework.includes('vite') ?  {
     "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.17",
@@ -108,6 +111,9 @@ export function generatePackageJson(config) {
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3"
   };
+  const sortedDevDependencies = Object.fromEntries(
+    Object.entries(devDependencies).sort(([a], [b]) => a.localeCompare(b))
+  );
 
   const packageJson = {
     name: config.projectName,
@@ -134,8 +140,8 @@ export function generatePackageJson(config) {
         'install:build': 'npm install && tsc && vite build',
         lint: "biome check . --write"
       },
-    dependencies: dependencies,
-    devDependencies: devDependencies
+    dependencies: sortedDependencies,
+    devDependencies: sortedDevDependencies
   }
   return packageJson
 }

@@ -10,11 +10,7 @@ import { AtRule } from 'postcss';` : ''}
 
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
+    react({}),
     visualizer({ filename: 'stats.html', open: true }),${config.addStaticWebAppConfig ? `
     viteStaticCopy({
       targets: [{ src: 'staticwebapp.config.json', dest: '' }],

@@ -6,7 +6,7 @@ It includes:
 * Routing with [TanStack Router](https://tanstack.com/router)
 * Data fetching with [TanStack Query](https://tanstack.com/query)
 * TailwindCSS
-* Code linting and formatting via ESLint and Prettier
+* Code linting and formatting via Biome
 
 ## 🧩 Installation
 
@@ -34,23 +34,34 @@ The page will reload if you make edits. You will also see any lint errors in the
 - `npm run build`: Executes `tsc && vite build` and builds the app for production and deployment.
 - `npm run preview`: Executes `vite preview` and serves the static build output (from vite build) locally.
 - `npm run clean`: Executes `rimraf node_modules && rimraf dist && rimraf package-lock.json` and remove node_modules folder, dist folder and package-lock.json.
-- `npm run lint`: Executes `npx eslint --fix && npx prettier . --write` and resolve all the linting and prettier errors.
+- `npm run lint`: Executes `biome check . --write` and resolve all the linting and prettier errors.
 
 ## 🧰 Tooling Setup
 
-This project uses ESLint integrated with Prettier to automatically format and lint your code.
+This project uses Biome integrated to automatically format and lint your code.
 
 If you’re using Visual Studio Code, install:
-* [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-* [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+* [Biome extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 
 Your editor should now show linting errors and automatically fix issues where possible.
 
-More info: [ESLint Integrations](http://eslint.org/docs/user-guide/integrations)
+More info: [Biome Docs](https://biomejs.dev/guides/getting-started/)
+
+__Recommendation__
+
+On Visual Studio Code, you can also use the [i18n Ally](https://github.com/lokalise/i18n-ally/wiki) extension for a better translation workflow. It provides features such as translation key autocomplete, inline translation previews, missing key detection, and quick navigation between translation files. 
 
 ## 🎨 Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling and and includes pre-configured design tokens from the UNDP Design System.
+
+## 🔣 Adding a new language
+
+1. Create a new translation file (e.g. `src/locales/<language code>/common.json`) containing all translated keys.
+2. Import and register the language in your i18next `src/i18n.ts`.
+3. Add the new language in `LANGUAGE` variable in `src/constants.ts`.
+4. Add the language code to your language selector or supported languages list.
+5. Switch languages using `i18n.changeLanguage('fr')` and i18next will load the corresponding translations.
 
 ## 🧭 Routing
 
@@ -101,6 +112,8 @@ import { Link } from "@tanstack/react-router";
 ```
 
 More info: [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+
+__Please note: Language routing is done at in `src/main.tsx`__
 
 ## 🔍 Data Fetching
 

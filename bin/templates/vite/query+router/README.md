@@ -6,7 +6,7 @@ It includes:
 * Routing with [TanStack Router](https://tanstack.com/router)
 * Data fetching with [TanStack Query](https://tanstack.com/query)
 * TailwindCSS
-* Code linting and formatting via ESLint and Prettier
+* Code linting and formatting via Biome
 
 ## 🧩 Installation
 
@@ -34,19 +34,18 @@ The page will reload if you make edits. You will also see any lint errors in the
 - `npm run build`: Executes `tsc && vite build` and builds the app for production and deployment.
 - `npm run preview`: Executes `vite preview` and serves the static build output (from vite build) locally.
 - `npm run clean`: Executes `rimraf node_modules && rimraf dist && rimraf package-lock.json` and remove node_modules folder, dist folder and package-lock.json.
-- `npm run lint`: Executes `npx eslint --fix && npx prettier . --write` and resolve all the linting and prettier errors.
+- `npm run lint`: Executes `biome check . --write` and resolve all the linting and prettier errors.
 
 ## 🧰 Tooling Setup
 
-This project uses ESLint integrated with Prettier to automatically format and lint your code.
+This project uses Biome integrated to automatically format and lint your code.
 
 If you’re using Visual Studio Code, install:
-* [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-* [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+* [Biome extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 
 Your editor should now show linting errors and automatically fix issues where possible.
 
-More info: [ESLint Integrations](http://eslint.org/docs/user-guide/integrations)
+More info: [Biome Docs](https://biomejs.dev/guides/getting-started/)
 
 ## 🎨 Styling
 
