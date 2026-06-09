@@ -26,12 +26,12 @@ function App() {
   const count = useCounter();
   const { increment, decrement } = useCounterActions();
 
-  if (isLoading) return <Spinner size='lg' className='my-20 m-auto' />;
+  if (isLoading) return <Spinner size='lg' className='mx-auto my-20' />;
 
   if (isError) return <>Error</>;
   return (
-    <div className=' min-h-screen flex flex-col justify-center'>
-      <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
+    <div className='flex min-h-screen flex-col justify-center'>
+      <div className='mx-auto my-8 flex items-center justify-center gap-4'>
         <img
           src='./imgs/Vitejs-logo.svg'
           alt='vite logo'
@@ -71,7 +71,7 @@ function App() {
         To get started, edit the App.tsx file.{' '}
         <span className='font-bold'>Count: {count}</span>
       </P>
-      <div className='flex gap-4 justify-center mb-8'>
+      <div className='mb-8 flex justify-center gap-4'>
         <Button
           variant='tertiary'
           onClick={() => {

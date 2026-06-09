@@ -14,8 +14,8 @@ function App() {
   const { increment, decrement } = useCounterActions();
   const { i18n, t } = useTranslation();
   return (
-    <div className=' min-h-screen flex flex-col justify-center'>
-      <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
+    <div className='flex min-h-screen flex-col justify-center'>
+      <div className='mx-auto my-8 flex items-center justify-center gap-4'>
         <img
           src='./imgs/Vitejs-logo.svg'
           alt='vite logo'
@@ -70,7 +70,7 @@ function App() {
         {t('started', { fileName: 'app.tsx' })}{' '}
         <span className='font-bold'>{t('count', { count: count })}</span>
       </P>
-      <div className='flex gap-4 justify-center'>
+      <div className='flex justify-center gap-4'>
         <Button
           variant='tertiary'
           onClick={() => {

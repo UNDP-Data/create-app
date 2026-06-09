@@ -7,7 +7,7 @@ export function About() {
   const { t } = useTranslation();
   return (
     <>
-      <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
+      <div className='mx-auto my-8 flex items-center justify-center gap-4'>
         <img
           src='/imgs/Vitejs-logo.svg'
           alt='vite logo'

@@ -34,7 +34,8 @@ The page will reload if you make edits. You will also see any lint errors in the
 - `npm run build`: Executes `tsc && vite build` and builds the app for production and deployment.
 - `npm run preview`: Executes `vite preview` and serves the static build output (from vite build) locally.
 - `npm run clean`: Executes `rimraf node_modules && rimraf dist && rimraf package-lock.json` and remove node_modules folder, dist folder and package-lock.json.
-- `npm run lint`: Executes `biome check . --write` and resolve all the linting and prettier errors.
+- `npm run check`: Executes `biome check .` and lists all the linting and prettier errors.
+- `npm run check:fix`: Executes `biome check --write .` and resolve all the linting and prettier errors.
 
 ## 🧰 Tooling Setup
 

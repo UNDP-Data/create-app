@@ -95,12 +95,16 @@ export default defineConfig({
             // 1. Append media first
             mediaRules
               .sort((a, b) => a.pxValue - b.pxValue)
-              .forEach(({ rule }) => root.append(rule));
+              .forEach(({ rule }) => {
+                root.append(rule);
+              });
 
             // 2. Append container after
             containerRules
               .sort((a, b) => a.pxValue - b.pxValue)
-              .forEach(({ rule }) => root.append(rule));
+              .forEach(({ rule }) => {
+                root.append(rule);
+              });
           },
         },` : `
         {
@@ -144,12 +148,16 @@ export default defineConfig({
             // 1. Append media first
             mediaRules
               .sort((a, b) => a.pxValue - b.pxValue)
-              .forEach(({ rule }) => root.append(rule));
+              .forEach(({ rule }) => {
+                root.append(rule);
+              });
 
             // 2. Append container after
             containerRules
               .sort((a, b) => a.pxValue - b.pxValue)
-              .forEach(({ rule }) => root.append(rule));
+              .forEach(({ rule }) => {
+                root.append(rule);
+              });
           },
         },`
         }

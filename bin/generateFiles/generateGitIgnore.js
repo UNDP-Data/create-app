@@ -13,7 +13,6 @@ build
 dist
 dist-ssr
 *.local
-.eslintcache
 stats.html
 
 # Editor directories and files

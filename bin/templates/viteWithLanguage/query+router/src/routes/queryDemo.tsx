@@ -21,12 +21,12 @@ export function TanStackQueryDemo() {
   const { data, isLoading, isError } = useTodoData();
   const { t } = useTranslation();
 
-  if (isLoading) return <Spinner size='lg' className='my-20 m-auto' />;
+  if (isLoading) return <Spinner size='lg' className='mx-auto my-20' />;
 
   if (isError) return <>Error</>;
   return (
     <>
-      <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
+      <div className='mx-auto my-8 flex items-center justify-center gap-4'>
         <img
           src='/imgs/Vitejs-logo.svg'
           alt='vite logo'

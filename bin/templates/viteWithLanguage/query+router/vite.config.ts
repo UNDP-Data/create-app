@@ -2,7 +2,6 @@ import path from 'path';
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import eslint from '@nabla/vite-plugin-eslint';
 import { visualizer } from 'rollup-plugin-visualizer';
 import postcssNested from 'postcss-nested';
 import tailwindcss from '@tailwindcss/postcss';
@@ -10,12 +9,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
-    eslint(),
+    react(),
     visualizer({ filename: 'stats.html', open: true }),
     viteStaticCopy({
       targets: [{ src: 'staticwebapp.config.json', dest: '' }],

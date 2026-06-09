@@ -11,7 +11,7 @@ export default function Home() {
   const { increment, decrement } = useCounterActions();
   return (
     <>
-      <div className='flex gap-4 items-center justify-center my-8 mx-auto'>
+      <div className='mx-auto my-8 flex items-center justify-center gap-4'>
         <Image
           className='dark:invert'
           src='/imgs/next.svg'
@@ -52,7 +52,7 @@ export default function Home() {
         To get started, edit the App.tsx file.{' '}
         <span className='font-bold'>Count: {count}</span>
       </P>
-      <div className='flex gap-4 justify-center'>
+      <div className='flex justify-center gap-4'>
         <Button
           variant='tertiary'
           onClick={() => {
