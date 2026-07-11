@@ -53,3 +53,5 @@ cd my-undp-app && npm run dev
 ```
 
 *Please note: If you have not installed the dependencies then you might want to run `npm install` before `npm run dev`.*
+
+*Please note: The scaffolding tool installs Proxima Nova and Sonhe Breit fonts; you can only use these fonts if you have a license or are using the app as UNDP sub-domain.*
