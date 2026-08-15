@@ -28,7 +28,7 @@ export function generatePackageJson(config) {
 					"file-saver": "^2.0.5",
 					handlebars: "^4.7.8",
 					"maplibre-gl": "^5.16.0",
-					marked: "^17.0.1",
+					marked: "^18.0.9",
 					"math-expression-evaluator": "^2.0.7",
 					pmtiles: "^4.3.0",
 					react: "^19.2.3",
