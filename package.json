@@ -1,12 +1,12 @@
 {
 	"name": "@undp/create-app",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"description": "UNDP's project scaffolding tool",
 	"bin": {
 		"create-undp-app": "./bin/index.js"
 	},
 	"scripts": {
-		"dev": "node ./bin/index.js"
+		"dev": "node ./bin/index.djs"
 	},
 	"publishConfig": {
 		"access": "public"

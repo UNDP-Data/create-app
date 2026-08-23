@@ -13,7 +13,7 @@ import {
 import HeaderEl from './components/Header';
 import FooterEl from './components/Footer';
 import App from './App';
-import createAboutRoute from './routes/about';
+import createAboutRoute from './routes/about.route';
 import i18n from './i18n';
 import { DEFAULT_LANGUAGE, LANGUAGES } from './constants';
 

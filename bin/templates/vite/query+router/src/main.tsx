@@ -12,7 +12,7 @@ import * as TanStackQueryProvider from './integration/tanstack-query';
 import HeaderEl from './components/Header';
 import FooterEl from './components/Footer';
 import App from './App';
-import createTanStackQueryDemoRoute from './routes/queryDemo';
+import createTanStackQueryDemoRoute from './routes/queryDemo.route';
 
 import './styles/fonts.css';
 import './styles/style.css';

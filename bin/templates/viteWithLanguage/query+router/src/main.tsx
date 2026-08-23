@@ -13,7 +13,7 @@ import * as TanStackQueryProvider from './integration/tanstack-query';
 import HeaderEl from './components/Header';
 import FooterEl from './components/Footer';
 import App from './App';
-import createTanStackQueryDemoRoute from './routes/queryDemo';
+import createTanStackQueryDemoRoute from './routes/queryDemo.route';
 import i18n from './i18n';
 import { DEFAULT_LANGUAGE, LANGUAGES } from './constants';
 

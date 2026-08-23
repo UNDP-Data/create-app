@@ -1,29 +1,7 @@
-import { createRoute } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
-import type { AnyRoute } from '@tanstack/react-router';
-import { Spinner } from '@undp/design-system-react/Spinner';
+import { createLazyRoute } from '@tanstack/react-router';
 import { P } from '@undp/design-system-react/Typography';
-import { useTranslation } from 'react-i18next';
 
-function useTodoData() {
-  return useQuery({
-    queryKey: ['todos'],
-    queryFn: () =>
-      Promise.resolve([
-        { id: 1, name: 'Alice' },
-        { id: 2, name: 'Bob' },
-        { id: 3, name: 'Charlie' },
-      ]),
-  });
-}
-
-export function TanStackQueryDemo() {
-  const { data, isLoading, isError } = useTodoData();
-  const { t } = useTranslation();
-
-  if (isLoading) return <Spinner size='lg' className='mx-auto my-20' />;
-
-  if (isError) return <>Error</>;
+export function About() {
   return (
     <>
       <div className='mx-auto my-8 flex items-center justify-center gap-4'>
@@ -63,16 +41,12 @@ export function TanStackQueryDemo() {
         />
       </div>
       <P marginBottom='xl' className='text-center'>
-        {t('dataLoading', { count: data?.length })}
+        To edit this page, edit the about.tsx file in the routes folder.
       </P>
     </>
   );
 }
 
-export default function createTanStackQueryDemoRoute(parentRoute: AnyRoute) {
-  return createRoute({
-    path: '/query-demo',
-    component: TanStackQueryDemo,
-    getParentRoute: () => parentRoute,
-  });
-}
+export const Route = createLazyRoute('/about')({
+  component: About,
+});

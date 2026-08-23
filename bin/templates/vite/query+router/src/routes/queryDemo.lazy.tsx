@@ -1,6 +1,5 @@
-import { createRoute } from '@tanstack/react-router';
+import { createLazyRoute } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
-import type { AnyRootRoute } from '@tanstack/react-router';
 import { Spinner } from '@undp/design-system-react/Spinner';
 import { P } from '@undp/design-system-react/Typography';
 
@@ -66,12 +65,7 @@ export function TanStackQueryDemo() {
     </>
   );
 }
-export default function createTanStackQueryDemoRoute(
-  parentRoute: AnyRootRoute,
-) {
-  return createRoute({
-    path: '/query-demo',
-    component: TanStackQueryDemo,
-    getParentRoute: () => parentRoute,
-  });
-}
+
+export const Route = createLazyRoute('/query-demo')({
+  component: QueryDemo,
+});

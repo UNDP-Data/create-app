@@ -1,5 +1,4 @@
-import { createRoute } from '@tanstack/react-router';
-import type { AnyRootRoute } from '@tanstack/react-router';
+import { createLazyRoute } from '@tanstack/react-router';
 import { P } from '@undp/design-system-react/Typography';
 
 export function About() {
@@ -47,12 +46,7 @@ export function About() {
     </>
   );
 }
-export default function createAboutRoute(
-  parentRoute: AnyRootRoute,
-) {
-  return createRoute({
-    path: '/about',
-    component: About,
-    getParentRoute: () => parentRoute,
-  });
-}
+
+export const Route = createLazyRoute('/about')({
+  component: About,
+});

@@ -1,8 +1,11 @@
 export function generateStylesCss(dataViz) {
-  return `@import '@undp/design-system-react/style.css';${dataViz ? `
-@import '@undp/data-viz/style.css';` : ''}
+	return `
 @import 'tailwindcss';
-@config '../../tailwind.config.js';
-`
+@import '@undp/design-system-react/style.css';${
+		dataViz
+			? `
+@import '@undp/data-viz/style.css';`
+			: ""
+	}
+`;
 }
-
