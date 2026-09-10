@@ -27,7 +27,7 @@ export function generatePackageJson(config) {
 					"dom-to-svg": "^0.12.2",
 					"file-saver": "^2.0.5",
 					handlebars: "^4.7.8",
-					"maplibre-gl": "^5.16.0",
+					"maplibre-gl": "^6.9.0",
 					marked: "^18.0.9",
 					"math-expression-evaluator": "^2.0.7",
 					pmtiles: "^4.3.0",
