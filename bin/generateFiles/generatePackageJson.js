@@ -15,7 +15,7 @@ export function generatePackageJson(config) {
 	const typeScriptVer = `^${getLatestVersion("typescript")}`;
 	const zustandVer = `^${getLatestVersion("zustand")}`;
 	const tailwindcssVer = `^${getLatestVersion("tailwindcss")}`;
-	const twAnimateCssVer = `^${getLatestVersion("tw-animate-css")}`;
+	const twAnimateCssVer = `^${getLatestVersion("tailwindcss-animate")}`;
 	const dependenciesTemp =
 		config.libraries.includes("peer") &&
 		config.libraries.includes("@undp/data-viz")
@@ -35,14 +35,12 @@ export function generatePackageJson(config) {
 					"react-dom": "^19.2.3",
 					"react-globe.gl": "^2.37.0",
 					three: "^0.182.0",
-					"tw-animate-css": twAnimateCssVer,
 					zustand: zustandVer,
 				}
 			: {
 					"@undp/design-system-react": designSystemVer,
 					react: "^19.2.3",
 					"react-dom": "^19.2.3",
-					"tw-animate-css": twAnimateCssVer,
 					zustand: zustandVer,
 				};
 
@@ -86,7 +84,7 @@ export function generatePackageJson(config) {
 	);
 	const devDependencies = config.framework.includes("vite")
 		? {
-				"@biomejs/biome": "^2.4.12",
+				"@biomejs/biome": "^2.5.15",
 				"@tailwindcss/postcss": "^4.1.17",
 				"@tailwindcss/vite": "^4.3.0",
 				"@types/node": "^24.10.0",
@@ -98,13 +96,16 @@ export function generatePackageJson(config) {
 				"postcss-nested": "^7.0.2",
 				rimraf: "^6.1.0",
 				"rollup-plugin-visualizer": "^6.0.5",
+				"tailwind-animate": "^0.2.10",
+				"tailwind-merge": "^3.4.0",
 				tailwindcss: tailwindcssVer,
+				"tailwindcss-animate": twAnimateCssVer,
 				typescript: typeScriptVer,
 				vite: "^8.0.13",
 				"vite-plugin-static-copy": "^4.1.0",
 			}
 		: {
-				"@biomejs/biome": "^2.4.12",
+				"@biomejs/biome": "^2.5.15",
 				"@tailwindcss/postcss": "^4.1.17",
 				"@types/node": "^24.10.0",
 				"@types/react": "^19.2.7",
@@ -113,7 +114,10 @@ export function generatePackageJson(config) {
 				"postcss-nested": "^7.0.2",
 				rimraf: "^6.1.0",
 				"rollup-plugin-visualizer": "^6.0.5",
+				"tailwind-animate": "^0.2.10",
+				"tailwind-merge": "^3.4.0",
 				tailwindcss: tailwindcssVer,
+				"tailwindcss-animate": twAnimateCssVer,
 				typescript: typeScriptVer,
 			};
 	const sortedDevDependencies = Object.fromEntries(
