@@ -15,7 +15,7 @@ export function generatePackageJson(config) {
 	const typeScriptVer = `^${getLatestVersion("typescript")}`;
 	const zustandVer = `^${getLatestVersion("zustand")}`;
 	const tailwindcssVer = `^${getLatestVersion("tailwindcss")}`;
-	const twAnimateCssVer = `^${getLatestVersion("tailwindcss-animate")}`;
+	const twAnimateVer = `^${getLatestVersion("tailwind-animate")}`;
 	const dependenciesTemp =
 		config.libraries.includes("peer") &&
 		config.libraries.includes("@undp/data-viz")
@@ -90,18 +90,18 @@ export function generatePackageJson(config) {
 				"@types/node": "^24.10.0",
 				"@types/react": "^19.2.7",
 				"@types/react-dom": "^19.2.3",
-				"@vitejs/plugin-react": "^6.0.2",
+				"@vitejs/plugin-react": "^6.1.2",
 				autoprefixer: "^10.4.21",
 				postcss: "^8.5.6",
 				"postcss-nested": "^7.0.2",
 				rimraf: "^6.1.0",
-				"rollup-plugin-visualizer": "^6.0.5",
-				"tailwind-animate": "^0.2.10",
+				"rollup-plugin-visualizer": "^7.1.1",
+				"tailwind-animate": twAnimateVer,
 				"tailwind-merge": "^3.4.0",
 				tailwindcss: tailwindcssVer,
-				"tailwindcss-animate": twAnimateCssVer,
 				typescript: typeScriptVer,
-				vite: "^8.0.13",
+				vite: "^8.3.5",
+				"vite-plugin-sitemap": "0.8.2",
 				"vite-plugin-static-copy": "^4.1.0",
 			}
 		: {
@@ -113,11 +113,10 @@ export function generatePackageJson(config) {
 				postcss: "^8.5.6",
 				"postcss-nested": "^7.0.2",
 				rimraf: "^6.1.0",
-				"rollup-plugin-visualizer": "^6.0.5",
-				"tailwind-animate": "^0.2.10",
+				"rollup-plugin-visualizer": "^7.1.1",
+				"tailwind-animate": twAnimateVer,
 				"tailwind-merge": "^3.4.0",
 				tailwindcss: tailwindcssVer,
-				"tailwindcss-animate": twAnimateCssVer,
 				typescript: typeScriptVer,
 			};
 	const sortedDevDependencies = Object.fromEntries(

@@ -1,14 +1,16 @@
-export function generateLayoutForNext(dataViz, projectName, query) {
-  return `import type { Metadata } from 'next';
+export function generateLayoutForNext(projectName, query) {
+	return `import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 import HeaderEl from '@/components/Header';
-import FooterEl from '@/components/Footer';${query ? `
-import TanStackQueryProvider from '@/integration/tanstack-query';`:''}
+import FooterEl from '@/components/Footer';${
+		query
+			? `
+import TanStackQueryProvider from '@/integration/tanstack-query';`
+			: ""
+	}
 
 import './globals.css';
-import '@undp/design-system-react/style.css';${dataViz ? `
-import '@undp/data-viz/style.css';` : ''}
 
 export const metadata: Metadata = {
   title: '${projectName}',
@@ -24,17 +26,20 @@ export default function RootLayout({
     <html lang='en'>
       <body className='flex flex-col gap-0 min-h-screen'>
         <HeaderEl />
-        <main className='grow-1 flex flex-col justify-center'>${query ? `
+        <main className='grow flex flex-col justify-center'>${
+					query
+						? `
           <TanStackQueryProvider>
             <div className='flex flex-col justify-center'>{children}</div>
-          </TanStackQueryProvider>` : `
-          <div className='flex flex-col justify-center'>{children}</div>`}
+          </TanStackQueryProvider>`
+						: `
+          <div className='flex flex-col justify-center'>{children}</div>`
+				}
         </main>
         <FooterEl />
       </body>
     </html>
   );
 }
-`
+`;
 }
-

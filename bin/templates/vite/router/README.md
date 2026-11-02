@@ -101,6 +101,23 @@ import { Link } from "@tanstack/react-router";
 
 More info: [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
 
+## ✅ Launch Checklist
+
+Before deploying to production, complete the launch checklist. It covers metadata and SEO, analytics, QA, accessibility, performance, security headers and caching.
+
+The checklist is set up as a GitHub issue template, so each launch gets its own tickable copy:
+
+1. Go to **Issues → New issue** in this repository.
+2. Select **Launch checklist**.
+3. Assign yourself, and click **Create**.
+4. Tick items off as you complete them. The issue list shows progress (e.g. "7 of 32 tasks").
+
+Or open it directly: [Create launch checklist issue](../../issues/new?template=launch-checklist.md)
+
+Don't close the issue until every item is checked, or marked N/A with a reason.
+
+The template lives in `.github/ISSUE_TEMPLATE/launch-checklist.md`.
+
 ## 📬 Contact us
 
 For questions or feedback, contact us at [data@undp.org](mailto:data@undp.org).

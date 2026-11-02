@@ -1,8 +1,11 @@
 export function generateStaticWebAppConfig() {
-  return `{
+	return `{
   "globalHeaders": {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, OPTIONS"
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    'Strict-Transport-Security': 'max-age=31536000',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
   },
   "routes": [
     {
@@ -36,12 +39,19 @@ export function generateStaticWebAppConfig() {
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Cache-Control": "no-cache"
       }
-    }
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": ["/assets/*", "/*.js", "/*.css", "/*.png", "/*.jpg", "/*.svg"]
   }
-}`
+}`;
 }
-

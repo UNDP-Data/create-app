@@ -1,26 +1,46 @@
 export function generateViteConfig(config) {
-  return `import path from 'path';
+	return `import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import postcssNested from 'postcss-nested';
-import tailwindcss from '@tailwindcss/postcss';${config.addStaticWebAppConfig ? `
-import { viteStaticCopy } from 'vite-plugin-static-copy';` : ''}${config.addPostCSSScripts ? `
-import { AtRule } from 'postcss';` : ''}
+import { viteStaticCopy } from 'vite-plugin-sitemap';
+import tailwindcss from '@tailwindcss/postcss';${
+		config.addStaticWebAppConfig
+			? `
+import { viteStaticCopy } from 'vite-plugin-static-copy';`
+			: ""
+	}${
+		config.addPostCSSScripts
+			? `
+import { AtRule } from 'postcss';`
+			: ""
+	}
 
 export default defineConfig({
   plugins: [
     react({}),
-    visualizer({ filename: 'stats.html', open: true }),${config.addStaticWebAppConfig ? `
+    Sitemap({ 
+      hostname: 'https://example.com',
+      // includes: [],
+      exclude: ['/admin', '/private']
+    }),
+    // visualizer({ filename: 'stats.html', open: true }),${
+			config.addStaticWebAppConfig
+				? `
     viteStaticCopy({
       targets: [{ src: 'staticwebapp.config.json', dest: '' }],
-    }),` : ''}
+    }),`
+				: ""
+		}
   ],
   css: {
     postcss: {
       plugins: [
         postcssNested(),
-        tailwindcss(),${config.addPostCSSScripts ? `
+        tailwindcss(),${
+					config.addPostCSSScripts
+						? `
         {
           postcssPlugin: 'remove-layers', // If you want to flatten layers except base layer
           AtRule: {
@@ -106,7 +126,8 @@ export default defineConfig({
                 root.append(rule);
               });
           },
-        },` : `
+        },`
+						: `
         {
           postcssPlugin: 'move-responsive-queries',
           OnceExit(root) {
@@ -160,19 +181,17 @@ export default defineConfig({
               });
           },
         },`
-        }
+				}
       ],
     },
   },
   build: {
     manifest: true,
-    cssCodeSplit: false,
-    rollupOptions: {
+    cssCodeSplit: true,
+    rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules/react')) return 'react';
-          if (id.includes('@undp/design-system-react')) return 'undp-design-system';${config.libraries.includes('@undp/data-viz') ? `
-          if (id.includes('@undp/data-viz')) return 'undp-data-viz';` : ''}
+        codeSplitting: {
+          groups: [{ name: 'react', test: /node_modules[\\/]react/ }],
         },
         chunkFileNames: '[name]-[hash].js',
         assetFileNames: '[name].[ext]',
@@ -189,8 +208,7 @@ export default defineConfig({
       optionsSuccessStatus: 204,
     },
   },
-  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+  resolve: { alias: { '@': path.resolve(import.meta.dirname, './src') } },
 });
-`
+`;
 }
-

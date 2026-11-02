@@ -1,6 +1,7 @@
 This is a React + TypeScript + Vite project powered by Tailwind CSS, and the UNDP Design System, bootstrapped with [@undp/create-app](https://www.npmjs.com/package/@undp/create-app). 
 
 It includes:
+
 * React 19.x with React compiler
 * UNDP Design System
 * TailwindCSS
@@ -54,21 +55,68 @@ This project uses [Tailwind CSS](https://tailwindcss.com/) for styling and and i
 
 To embed the visualization on an external page, include:
 
-**HTML Placeholder**
+### Option 1: Iframe
+
+__HTML Placeholder__
+
+```html
+  <iframe
+    id="my-embed"
+    src="<url of the app>"
+    style="width: 100%; border: 0; display: block;"
+    scrolling="no"
+  />
+```
+
+__Required `<script>`__
+
+```js
+  <script>
+    var iframe = document.getElementById('my-embed');
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'APP_URL') return;
+      if (e.source !== iframe.contentWindow) return;
+      if (e.data && e.data.type === 'iframe-height') {
+        iframe.style.height = e.data.height + 'px';
+      }
+    });
+  </script>
+```
+
+_This script listens for height messages from the embedded web app and resizes the iframe to match its content, so the app displays without an inner scrollbar._
+
+### Option 2: Embed in the page (Worst performance better UX)
+
+__HTML Placeholder__
 
 ```html
 <div id="root"></div>
 ```
 
-**Required `<script>` and `<link>` tags**
+__Required `<script>` and `<link>` tags__
 
-```
+```html
 <link rel="dns-prefetch" href="{{Visualization URL}}">
 <script defer="defer" type="module" src="{{Visualization URL}}/index.js"></script>
-<link rel="modulepreload" crossorigin href="{{Visualization URL}}/react-{{hash}}.js">
-<link rel="modulepreload" crossorigin href="{{Visualization URL}}/undp-{{hash}}.js">
 <link rel="stylesheet" href="{{Visualization URL}}/style.css"></link>
 ```
+
+## ✅ Launch Checklist
+
+Before deploying to production, complete the launch checklist. It covers metadata and SEO, analytics, QA, accessibility, performance, security headers and caching.
+
+The checklist is set up as a GitHub issue template, so each launch gets its own tickable copy:
+
+1. Go to **Issues → New issue** in this repository.
+2. Select **Launch checklist**.
+3. Assign yourself, and click **Create**.
+4. Tick items off as you complete them. The issue list shows progress (e.g. "7 of 32 tasks").
+
+Or open it directly: [Create launch checklist issue](../../issues/new?template=launch-checklist.md)
+
+Don't close the issue until every item is checked, or marked N/A with a reason.
+
+The template lives in `.github/ISSUE_TEMPLATE/launch-checklist.md`.
 
 ## 📬 Contact us
 

@@ -27,10 +27,12 @@ All setups include **Tailwind CSS** for styling and **Zustand** for state manage
 
 | Framework | Variants | Description | Internationalization Available |
 |------------|-----------|-------------|-------------|
-| **Vite** | Basic | Minimal React + TypeScript setup | ✅ |
-| **Vite** | + Router | Adds TanStack Router for routing | ✅ |
+| **Vite** ⭐ Recommended | Basic | Minimal React + TypeScript setup | ✅ |
+| **Vite**  ⭐ Recommended | + Router | Adds TanStack Router for routing | ✅ |
 | **Next.js** | Basic | SSR and file-based routing | ❌ |
 | **Next.js** | + Auth | Includes authentication via Better Auth | ❌ |
+
+> **Note:** Vite is the primary focus of this scaffolding. Its setups are the most mature and feature-complete, including i18n support. The Next.js setups are more experimental and may lag behind.
 
 ---
 

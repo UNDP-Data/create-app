@@ -1,119 +1,160 @@
 #!/usr/bin/env node
 
-import path from 'path';
-import inquirer from 'inquirer';
-import chalk from 'chalk';
-import { execSync } from 'child_process';
-import { promptUser } from './promptUser.js';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { printSuccess, createFolders } from './utils/index.js';
-import { 
-  generatePackageJson,
-  generateViteConfig,  
-  generateIndexHtml,
-  generateStaticWebAppConfig,
-  generateStylesCss,
-  generateLayoutForNext,
-  generateNextEnvTypes,
-  generateEnv,
-  generatePageForNext,
-  generateGitIgnore,
-} from './generateFiles/index.js';
+import chalk from "chalk";
+import { execSync } from "child_process";
+import fs from "fs";
+import inquirer from "inquirer";
+import path from "path";
+import { fileURLToPath } from "url";
+import {
+	generateEnv,
+	generateGitIgnore,
+	generateIndexHtml,
+	generateLayoutForNext,
+	generateNextEnvTypes,
+	generatePackageJson,
+	generatePageForNext,
+	generateStaticWebAppConfig,
+	generateStylesCss,
+	generateViteConfig,
+} from "./generateFiles/index.js";
+import { promptUser } from "./promptUser.js";
+import { createFolders, printSuccess } from "./utils/index.js";
 
 function copyFolder(source, destination) {
-  fs.cpSync(source, destination, { recursive: true, force: true });
+	fs.cpSync(source, destination, { recursive: true, force: true });
 }
 
 async function main() {
-  const args = process.argv.slice(2);
-  const projectName = args[0];
-  const config = await promptUser(projectName);
+	const args = process.argv.slice(2);
+	const projectName = args[0];
+	const config = await promptUser(projectName);
 
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = path.dirname(__filename);
 
-  const projectPath = path.resolve(process.cwd(), config.projectName);
-  console.log(chalk.gray('\n' + '─'.repeat(60)));
-  console.log(chalk.bold.green(`\n📁 Creating project at: ${chalk.cyan(projectPath)}\n`));
+	const projectPath = path.resolve(process.cwd(), config.projectName);
+	console.log(chalk.gray("\n" + "─".repeat(60)));
+	console.log(
+		chalk.bold.green(`\n📁 Creating project at: ${chalk.cyan(projectPath)}\n`),
+	);
 
-  createFolders(projectPath, true);
+	createFolders(projectPath, true);
 
-  process.chdir(projectPath);
-  
-  const baseFolder = config.framework.includes('vite') ? config.language ? 'viteWithLanguage' : 'vite' : 'next';
-  
+	process.chdir(projectPath);
 
-  let tertiaryFolder = 'basic';
+	const baseFolder = config.framework.includes("vite")
+		? config.language
+			? "viteWithLanguage"
+			: "vite"
+		: "next";
 
-  switch (config.framework) {
-    case 'vite-basic':
-      if (config.query)
-        tertiaryFolder = 'query';
-      else
-        tertiaryFolder = 'basic';
-      break;
-    case 'vite-router':
-      if (config.query)
-        tertiaryFolder = 'query+router';
-      else
-        tertiaryFolder = 'router';
-      break;
-    case 'next-auth':
-      tertiaryFolder = 'auth';
-      break;
-    default:
-      break;
-  }
-  
-  
+	let tertiaryFolder = "basic";
 
-  if (config.framework.includes('vite')) {
-    copyFolder(path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`), projectPath);
-    fs.writeFileSync('vite.config.ts', generateViteConfig(config));
-    fs.writeFileSync('index.html', generateIndexHtml(config));
-    fs.writeFileSync('src/styles/style.css', generateStylesCss(config.libraries.includes('@undp/data-viz')));
-    if (config.addStaticWebAppConfig) {      
-      fs.writeFileSync('staticwebapp.config.json', generateStaticWebAppConfig());
-    }
-  } else {
-    copyFolder(path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`), projectPath);
-    fs.writeFileSync('app/layout.tsx', generateLayoutForNext(config.libraries.includes('@undp/data-viz'), config.projectName, config.query));
-    fs.writeFileSync('next-env.d.ts', generateNextEnvTypes());
-    fs.writeFileSync('app/page.tsx', generatePageForNext(config.query));
-    if (config.framework === 'next-auth') fs.writeFileSync('.env.local', generateEnv());
-    if (config.query) copyFolder(path.join(__dirname, './templates/queryIntegrationForNext'), projectPath);
-  }
-  fs.writeFileSync('.gitignore', generateGitIgnore(config.framework.includes('vite')));
-  fs.writeFileSync('package.json', JSON.stringify(generatePackageJson(config), null, 2));
-  
-  console.log(chalk.green('  ✓ Project folder and files generated\n'));
+	switch (config.framework) {
+		case "vite-basic":
+			if (config.query) tertiaryFolder = "query";
+			else tertiaryFolder = "basic";
+			break;
+		case "vite-router":
+			if (config.query) tertiaryFolder = "query+router";
+			else tertiaryFolder = "router";
+			break;
+		case "next-auth":
+			tertiaryFolder = "auth";
+			break;
+		default:
+			break;
+	}
 
-  const { installNow } = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'installNow',
-      message: 'Would you like to install dependencies now?',
-      default: true,
-    },
-  ]);
+	if (config.framework.includes("vite")) {
+		copyFolder(
+			path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`),
+			projectPath,
+		);
+		fs.writeFileSync("vite.config.ts", generateViteConfig(config));
+		fs.writeFileSync("index.html", generateIndexHtml(config));
+		fs.writeFileSync(
+			"src/styles/style.css",
+			generateStylesCss(config.libraries.includes("@undp/data-viz")),
+		);
+		if (config.addStaticWebAppConfig) {
+			fs.writeFileSync(
+				"staticwebapp.config.json",
+				generateStaticWebAppConfig(),
+			);
+		}
+	} else {
+		copyFolder(
+			path.join(__dirname, `./templates/${baseFolder}/${tertiaryFolder}`),
+			projectPath,
+		);
+		fs.writeFileSync(
+			"app/layout.tsx",
+			generateLayoutForNext(config.projectName, config.query),
+		);
+		fs.writeFileSync(
+			"app/globals.css",
+			generateStylesCss(config.libraries.includes("@undp/data-viz")),
+		);
+		fs.writeFileSync("next-env.d.ts", generateNextEnvTypes());
+		fs.writeFileSync("app/page.tsx", generatePageForNext(config.query));
+		if (config.framework === "next-auth")
+			fs.writeFileSync(".env.local", generateEnv());
+		if (config.query)
+			copyFolder(
+				path.join(__dirname, "./templates/queryIntegrationForNext"),
+				projectPath,
+			);
+	}
+	fs.writeFileSync(
+		".gitignore",
+		generateGitIgnore(config.framework.includes("vite")),
+	);
+	fs.writeFileSync(
+		"package.json",
+		JSON.stringify(generatePackageJson(config), null, 2),
+	);
 
-  console.log(chalk.bold.yellow('\n📦 Installing dependencies (this might take some time)...'));
-  if (installNow) {
-    try {
-      execSync('npm install', { stdio: 'inherit' })
-      console.log(chalk.green('  ✓ All dependencies installed'));
-    } catch {
-      console.log(chalk.yellow('  ⚠️ Skipped installing dependencies (npm not installed or error occurred)'));
-    }
-  }
-  try {
-    execSync('git init', { stdio: 'ignore' });
-    console.log(chalk.green('  ✓ Git repository initialized'));
-  } catch {
-    console.log(chalk.yellow('  ⚠️ Skipped git init (Git not installed or error occurred)'));
-  }
-  printSuccess(config, installNow);
+	console.log(chalk.green("  ✓ Project folder and files generated\n"));
+
+	const { installNow } = await inquirer.prompt([
+		{
+			type: "confirm",
+			name: "installNow",
+			message: "Would you like to install dependencies now?",
+			default: true,
+		},
+	]);
+
+	console.log(
+		chalk.bold.yellow(
+			"\n📦 Installing dependencies (this might take some time)...",
+		),
+	);
+	if (installNow) {
+		try {
+			execSync("npm install", { stdio: "inherit" });
+			console.log(chalk.green("  ✓ All dependencies installed"));
+		} catch {
+			console.log(
+				chalk.yellow(
+					"  ⚠️ Skipped installing dependencies (npm not installed or error occurred)",
+				),
+			);
+		}
+	}
+	try {
+		execSync("git init", { stdio: "ignore" });
+		console.log(chalk.green("  ✓ Git repository initialized"));
+	} catch {
+		console.log(
+			chalk.yellow(
+				"  ⚠️ Skipped git init (Git not installed or error occurred)",
+			),
+		);
+	}
+	printSuccess(config, installNow);
 }
 
 main().catch(console.error);

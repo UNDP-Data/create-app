@@ -1,73 +1,72 @@
-import { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
 import {
-  Outlet,
-  RouterProvider,
-  createRootRoute,
-  createRoute,
-  createRouter,
-} from '@tanstack/react-router';
+	createRootRoute,
+	createRoute,
+	createRouter,
+	Outlet,
+	RouterProvider,
+} from "@tanstack/react-router";
+import { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import FooterEl from "./components/Footer";
+import HeaderEl from "./components/Header";
+import * as TanStackQueryProvider from "./integration/tanstack-query";
+import createTanStackQueryDemoRoute from "./routes/queryDemo.route";
 
-import * as TanStackQueryProvider from './integration/tanstack-query';
-import HeaderEl from './components/Header';
-import FooterEl from './components/Footer';
-import App from './App';
-import createTanStackQueryDemoRoute from './routes/queryDemo.route';
-
-import './styles/fonts.css';
-import './styles/style.css';
+import "./styles/fonts.css";
+import "./styles/style.css";
 
 const rootRoute = createRootRoute({
-  component: () => (
-    <div className='flex flex-col gap-0 min-h-screen'>
-      <HeaderEl />
-      <main className='grow-1 flex flex-col justify-center'>
-        <div className='flex flex-col justify-center'>
-          <Outlet />
-        </div>
-      </main>
-      <FooterEl />
-    </div>
-  ),
+	component: () => (
+		<div className="flex flex-col gap-0 min-h-screen">
+			<HeaderEl />
+			<main className="grow flex flex-col justify-center">
+				<div className="flex flex-col justify-center">
+					<Outlet />
+				</div>
+			</main>
+			<FooterEl />
+		</div>
+	),
 });
 
 const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: App,
+	getParentRoute: () => rootRoute,
+	path: "/",
+	component: App,
 });
 
 const routeTree = rootRoute.addChildren([
-  indexRoute,
-  createTanStackQueryDemoRoute(rootRoute),
+	indexRoute,
+	createTanStackQueryDemoRoute(rootRoute),
 ]);
 
 const TanStackQueryProviderContext = TanStackQueryProvider.getContext();
 const router = createRouter({
-  routeTree,
-  context: {
-    ...TanStackQueryProviderContext,
-  },
-  defaultPreload: 'intent',
-  scrollRestoration: true,
-  defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
+	routeTree,
+	context: {
+		...TanStackQueryProviderContext,
+	},
+	defaultPreload: "intent",
+	scrollRestoration: true,
+	defaultStructuralSharing: true,
+	defaultPreloadStaleTime: 0,
 });
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
+declare module "@tanstack/react-router" {
+	interface Register {
+		router: typeof router;
+	}
 }
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <StrictMode>
-      <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
-        <RouterProvider router={router} />
-      </TanStackQueryProvider.Provider>
-    </StrictMode>,
-  );
+	const root = ReactDOM.createRoot(rootElement);
+	root.render(
+		<StrictMode>
+			<TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
+				<RouterProvider router={router} />
+			</TanStackQueryProvider.Provider>
+		</StrictMode>,
+	);
 }

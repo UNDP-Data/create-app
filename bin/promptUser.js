@@ -1,134 +1,157 @@
-import readline from 'readline';
-import inquirer from 'inquirer';
-import chalk from 'chalk';
+import chalk from "chalk";
+import inquirer from "inquirer";
+import readline from "readline";
 
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+	input: process.stdin,
+	output: process.stdout,
 });
 
 const question = (query) =>
-  new Promise(resolve => rl.question(query, resolve));
+	new Promise((resolve) => rl.question(query, resolve));
 
 export async function promptUser(name) {
-  console.log(
-    chalk.bold.cyan("\n🚀 UNDP Frontend Starter Kit | Let's configure your application")
-  );
-  console.log(chalk.gray('─'.repeat(60)) + '\n');
+	console.log(
+		chalk.bold.cyan(
+			"\n🚀 UNDP Frontend Starter Kit | Let's configure your application",
+		),
+	);
+	console.log(chalk.gray("─".repeat(60)) + "\n");
 
-  const projectName = name ? name : (await question(chalk.yellow('📝 Enter project name: '))) || 'my-undp-react-app';
-  
-  const { framework } = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'framework',
-      loop: false,
-      message: chalk.yellow('📦 Choose your setup (all include Tailwind for styling & Zustand for state management):\n'),
-      choices: [
-        { name: 'Vite — Basic React setup (ideal for embedding)', value: 'vite-basic' },
-        { name: 'Vite + Router — With routing support', value: 'vite-router' },
-        { name: 'Next.js — SSR and file routing', value: 'next-basic' },
-        { name: 'Next.js + Auth — With authentication', value: 'next-auth' },
-      ],
-      default: 'vite-basic',
-    },
-  ]);  
+	const projectName = name
+		? name
+		: (await question(chalk.yellow("📝 Enter project name: "))) ||
+			"my-undp-react-app";
+	const { framework } = await inquirer.prompt([
+		{
+			type: "list",
+			name: "framework",
+			loop: false,
+			message: chalk.yellow(
+				"📦 Choose a starter (all include Tailwind CSS + Zustand):\n",
+			),
+			choices: [
+				new inquirer.Separator(
+					chalk.dim(
+						"── Vite (recommended, more mature and feature complete) ──",
+					),
+				),
+				{
+					name: `Vite · Basic       ${chalk.dim("— Minimal SPA, great for embedding")}`,
+					value: "vite-basic",
+				},
+				{
+					name: `Vite · Router      ${chalk.dim("— Multi-page SPA with TanStack Router")}`,
+					value: "vite-router",
+				},
+				new inquirer.Separator(chalk.dim("── Next.js ──")),
+				{
+					name: `Next.js · Basic    ${chalk.dim("— SSR with file-based routing")}`,
+					value: "next-basic",
+				},
+				{
+					name: `Next.js · Auth     ${chalk.dim("— SSR + authentication via Better Auth")}`,
+					value: "next-auth",
+				},
+			],
+			default: "vite-basic",
+		},
+	]);
 
-  const { addQuery } = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'addQuery',
-      message: chalk.yellow(
-        '⚙️ Add @tanstack/query for data fetching?'
-      ),
-      choices: ['Yes', 'No'],
-      default: 'No',
-    },
-  ]);
+	const { addQuery } = await inquirer.prompt([
+		{
+			type: "list",
+			name: "addQuery",
+			message: chalk.yellow("⚙️ Add @tanstack/query for data fetching?"),
+			choices: ["Yes", "No"],
+			default: "No",
+		},
+	]);
 
-  const query = addQuery === 'Yes';
+	const query = addQuery === "Yes";
 
-  let language = false;
+	let language = false;
 
-  if (framework === 'vite-basic' || framework === 'vite-router') {
-    const { addLanguage } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'addLanguage',
-        message: chalk.yellow(
-          '⚙️ Add multi language support (en, es, fr)?'
-        ),
-        choices: ['Yes', 'No'],
-        default: 'No',
-      },
-    ]);
+	if (framework === "vite-basic" || framework === "vite-router") {
+		const { addLanguage } = await inquirer.prompt([
+			{
+				type: "list",
+				name: "addLanguage",
+				message: chalk.yellow("⚙️ Add multi language support (en, es, fr)?"),
+				choices: ["Yes", "No"],
+				default: "No",
+			},
+		]);
 
-    language = addLanguage === 'Yes';
-  }
+		language = addLanguage === "Yes";
+	}
 
-  const libraryChoices = [
-    { 
-      name: '@undp/data-viz — UNDP data visualization components', 
-      value: '@undp/data-viz' 
-    },
-    { 
-      name: 'lucide-react — Beautiful open-source icon set for React', 
-      value: 'lucide-react' 
-    },
-    { 
-      name: 'Peer dependencies — Install required framework dependencies', 
-      value: 'peer' 
-    },
-  ];
+	const libraryChoices = [
+		{
+			name: "@undp/data-viz — UNDP data visualization components",
+			value: "@undp/data-viz",
+		},
+		{
+			name: "lucide-react — Beautiful open-source icon set for React",
+			value: "lucide-react",
+		},
+		{
+			name: "Peer dependencies — Install required framework dependencies",
+			value: "peer",
+		},
+	];
 
-  const { libraries } = await inquirer.prompt([
-    {
-      type: 'checkbox',
-      name: 'libraries',
-      message: chalk.yellow('📦 Select the libraries you want to install:'),
-      choices: libraryChoices,
-      default: ['@undp/data-viz', 'lucide-react'],
-    },
-  ]);
+	const { libraries } = await inquirer.prompt([
+		{
+			type: "checkbox",
+			name: "libraries",
+			message: chalk.yellow("📦 Select the libraries you want to install:"),
+			choices: libraryChoices,
+			default: ["@undp/data-viz", "lucide-react"],
+		},
+	]);
 
-  let addPostCSSScripts = false;
+	let addPostCSSScripts = false;
 
-  if(framework === 'vite-basic') {
-    const { postCSS } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'postCSS',
-        message: chalk.yellow(
-          '⚙️ Add PostCSS script to wrap all classes in `.undp-container` (recommended only if embedding in another app)?'
-        ),
-        choices: ['Yes', 'No'],
-        default: 'Yes',
-      },
-    ]);
-    addPostCSSScripts = postCSS === 'Yes';
-  }
+	if (framework === "vite-basic") {
+		const { postCSS } = await inquirer.prompt([
+			{
+				type: "list",
+				name: "postCSS",
+				message: chalk.yellow(
+					"⚙️ Add PostCSS script to wrap all classes in `.undp-container` (recommended only if embedding in another app)?",
+				),
+				choices: ["Yes", "No"],
+				default: "Yes",
+			},
+		]);
+		addPostCSSScripts = postCSS === "Yes";
+	}
 
-  const { staticWebApp } = framework !== 'next-basic' && framework !== 'next-auth' ? await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'staticWebApp',
-      message: chalk.yellow('⚙️ Add Azure Static Web App Config file?'),
-      choices: ['Yes', 'No'],
-      default: 'No',
-    },
-  ]) : { staticWebApp: 'No' };
+	const { staticWebApp } =
+		framework !== "next-basic" && framework !== "next-auth"
+			? await inquirer.prompt([
+					{
+						type: "list",
+						name: "staticWebApp",
+						message: chalk.yellow("⚙️ Add Azure Static Web App Config file?"),
+						choices: ["Yes", "No"],
+						default: "No",
+					},
+				])
+			: { staticWebApp: "No" };
 
-  const addStaticWebAppConfig = staticWebApp === 'Yes';
+	const addStaticWebAppConfig = staticWebApp === "Yes";
 
-  rl.close();
+	rl.close();
 
-  return {
-    projectName,
-    libraries,
-    addStaticWebAppConfig,
-    addPostCSSScripts,
-    framework,
-    query,
-    language,
-  };
+	return {
+		projectName,
+		libraries,
+		addStaticWebAppConfig,
+		addPostCSSScripts,
+		framework,
+		query,
+		language,
+	};
 }
