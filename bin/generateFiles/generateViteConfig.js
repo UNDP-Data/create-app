@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 // import { visualizer } from 'rollup-plugin-visualizer';
 import postcssNested from 'postcss-nested';
-import { viteStaticCopy } from 'vite-plugin-sitemap';
+import Sitemap from 'vite-plugin-sitemap';
 import tailwindcss from '@tailwindcss/postcss';${
 		config.addStaticWebAppConfig
 			? `
@@ -22,8 +22,9 @@ export default defineConfig({
     react({}),
     Sitemap({ 
       hostname: 'https://example.com',
-      // includes: [],
-      exclude: ['/admin', '/private']
+      // dynamicRoutes: [],
+      exclude: ['/admin', '/private'],
+      generateRobotsTxt: true,
     }),
     // visualizer({ filename: 'stats.html', open: true }),${
 			config.addStaticWebAppConfig
