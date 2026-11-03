@@ -2,9 +2,9 @@ import {
 	createRootRoute,
 	createRoute,
 	createRouter,
+	HeadContent,
 	Outlet,
 	RouterProvider,
-	redirect,
 } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
@@ -15,12 +15,18 @@ import HeaderEl from "./components/Header";
 import { DEFAULT_LANGUAGE, LANGUAGES } from "./constants";
 import i18n from "./i18n";
 import createAboutRoute from "./routes/about.route";
+import { metaDataDefinition } from "./utils/metaDataDefinition";
 
 import "./styles/fonts.css";
 import "./styles/style.css";
 
 const rootRoute = createRootRoute({
-	component: () => <Outlet />,
+	component: () => (
+		<>
+			<HeadContent />
+			<Outlet />
+		</>
+	),
 });
 
 const localeRoute = createRoute({
@@ -53,6 +59,11 @@ const indexRoute = createRoute({
 	getParentRoute: () => localeRoute,
 	path: "/",
 	component: App,
+	head: ({ params }) =>
+		metaDataDefinition({
+			path: "/",
+			locale: params.locale,
+		}),
 });
 
 const routeTree = rootRoute.addChildren([

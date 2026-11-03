@@ -21,7 +21,7 @@ export default defineConfig({
   plugins: [
     react({}),
     Sitemap({ 
-      hostname: 'https://example.com',
+      hostname: 'SITE_URL',
       // dynamicRoutes: [],
       exclude: ['/admin', '/private'],
       generateRobotsTxt: true,

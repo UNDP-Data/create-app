@@ -2,6 +2,7 @@ import {
 	createRootRoute,
 	createRoute,
 	createRouter,
+	HeadContent
 	Outlet,
 	RouterProvider,
 } from "@tanstack/react-router";
@@ -15,12 +16,18 @@ import { DEFAULT_LANGUAGE, LANGUAGES } from "./constants";
 import i18n from "./i18n";
 import * as TanStackQueryProvider from "./integration/tanstack-query";
 import createTanStackQueryDemoRoute from "./routes/queryDemo.route";
+import { metaDataDefinition } from "./utils/metaDataDefinition";
 
 import "./styles/fonts.css";
 import "./styles/style.css";
 
 const rootRoute = createRootRoute({
-	component: () => <Outlet />,
+	component: () => (
+		<>
+			<HeadContent />
+			<Outlet />
+		</>
+	),
 });
 
 const localeRoute = createRoute({
@@ -53,6 +60,11 @@ const indexRoute = createRoute({
 	getParentRoute: () => localeRoute,
 	path: "/",
 	component: App,
+	head: ({ params }) =>
+		metaDataDefinition({
+			path: "/",
+			locale: params.locale,
+		}),
 });
 
 const routeTree = rootRoute.addChildren([

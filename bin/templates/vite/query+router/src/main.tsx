@@ -2,6 +2,7 @@ import {
 	createRootRoute,
 	createRoute,
 	createRouter,
+	HeadContent,
 	Outlet,
 	RouterProvider,
 } from "@tanstack/react-router";
@@ -12,21 +13,25 @@ import FooterEl from "./components/Footer";
 import HeaderEl from "./components/Header";
 import * as TanStackQueryProvider from "./integration/tanstack-query";
 import createTanStackQueryDemoRoute from "./routes/queryDemo.route";
+import { metaDataDefinition } from "./utils/metaDataDefinition";
 
 import "./styles/fonts.css";
 import "./styles/style.css";
 
 const rootRoute = createRootRoute({
 	component: () => (
-		<div className="flex flex-col gap-0 min-h-screen">
-			<HeaderEl />
-			<main className="grow flex flex-col justify-center">
-				<div className="flex flex-col justify-center">
-					<Outlet />
-				</div>
-			</main>
-			<FooterEl />
-		</div>
+		<>
+			<HeadContent />
+			<div className="flex flex-col gap-0 min-h-screen">
+				<HeaderEl />
+				<main className="grow flex flex-col justify-center">
+					<div className="flex flex-col justify-center">
+						<Outlet />
+					</div>
+				</main>
+				<FooterEl />
+			</div>
+		</>
 	),
 });
 
@@ -34,6 +39,10 @@ const indexRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: "/",
 	component: App,
+	head: () =>
+		metaDataDefinition({
+			path: "/",
+		}),
 });
 
 const routeTree = rootRoute.addChildren([

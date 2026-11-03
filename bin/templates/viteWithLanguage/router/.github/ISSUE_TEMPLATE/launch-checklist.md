@@ -23,9 +23,9 @@ assignees: ''
   <meta property="og:title" content="TITLE" />
   <meta property="og:description" content="DESCRIPTION" />
   <meta property="og:url" content="https://example.com/page" />
-  <meta property="og:image" content="https://example.com/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image" content="https://example.com/imgs/og-image.jpg" />
+  <meta property="og:image:width" content="862" />
+  <meta property="og:image:height" content="483" />
   <meta property="og:image:alt" content="IMAGE_ALT_TEXT" />
   <meta name="twitter:card" content="summary_large_image" />
   ```
