@@ -16,7 +16,7 @@ export function generateIndexHtml(config) {
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${config.projectName}" />
     <meta property="og:title" content="${config.projectName}" />
-    <meta property="og:description" content="${config.projectName}/>
+    <meta property="og:description" content="${config.projectName}" />
     <meta property="og:url" content="https://YOUR_SITE_URL/" />
     <meta property="og:image" content="https://YOUR_SITE_URL/imgs/og-image.jpg" />
     <meta property="og:image:width" content="862" />
